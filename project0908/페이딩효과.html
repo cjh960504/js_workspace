@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<style>
+</style>
+<script>
+    /*
+        자바스크립트를 이용하면, 실행타임(runtime)에도 CSS를 변경할 수 있다.
+        즉, CSS를 동적으로 변경할 수 있다.
+    */ 
+    var op = 1;
+    function transnode(){
+        if(op != 1){
+            op = op + 0.1;
+            document.getElementById("pic").style.opacity=op;
+        }
+    }
+    function transparent(){
+        // 문서내의 pic이라는 요소의 css중 투명도를 조절
+        if(op !=0){
+            op = op - 0.1;
+            document.getElementById("pic").style.opacity=op;
+        } 
+    }   
+</script>
+<body>
+    <div>
+        <img id="pic" src="../images/travel/3.jpg" alt="">
+        <button onClick="transnode()">점점 투명하게..</button>
+        <button onClick="transparent()">점점 불투명하게..</button>
+    </div>
+    </body>
+</html>

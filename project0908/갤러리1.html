@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>갤러리</title>
+    <style>
+        #wrapper{
+            width: 500px;
+            height: 450px;
+            margin: auto;
+        }
+        #image_box{
+            width: 100%;
+            height: 400px;
+            background:red;
+        }
+        #buttons_box{
+            overflow:hidden;
+            /* 자식이 떠있으면, 원칙상 부모의 overflow:hidden; */
+        }
+        /* selector 에서 한칼을 띄울 경우 : 하위의 자식 요소들.. */
+        #buttons_box button{
+            font-size:25px;
+            padding:4px;
+        }
+        #left{
+            float:left;
+            /* 자식이 떠있으면, 원칙상 부모의 overflow:hidden; */
+            background:rgb(76, 77, 82);
+        }
+        #right{
+            float: right;
+            background:rgb(76, 77, 82);
+        }
+        #pic{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script>
+        var num=1;
+        function prev(){
+            if(num >1){
+                num = num - 1;
+                //  숫자 + 문자 = 문자("숫자+문자")
+                document.getElementById("pic").src="../images/travel/"+num+".jpg";
+             }else{
+                alert("갤러리 첫번째 사진입니다...");
+            }
+            
+        }
+       function next(){
+        // 문서내의 pic이라는 녀석에 src의 값을 변경해보자
+        // 이럴경우, 사용자는 이미지가 자동으로 교체되는 효과.
+        // 대부분의 프로그래밍 언어에서는 식별성을 높이기 위해
+        // 복합어로 구성된 단어에 대해 명명규칙
+        // 낙타등 표기법 : camel기법
+        // 단어와 단어가 만나면, 뒷 철자를 대문자로 표기한다.
+        if(num <10){
+             num = num + 1;
+             document.getElementById("pic").src="../images/travel/"+num+".jpg";
+            }else{
+                alert("갤러리 마지막 사진입니다...");
+            }
+       };
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="image_box">
+            <img src="../images/travel/1.jpg" id="pic"/>
+        </div>
+        <div id="buttons_box">
+            <button id="left" onClick="prev()">◀</button>
+            <button id="right" onClick="next()">▶</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+    </style>
+    <script>
+        var num=1;
+        var route="../images/hero/image";
+        var png=".png";
+
+        function next(){
+            if(num<=10){
+                document.getElementById("pic").src=route+num+png;
+                num++;      
+            }else{
+                num=1;  
+                document.getElementById("pic").src=route+num+png;
+            }
+        }
+    </script>
+</head>
+<body>
+    <img id="pic" src="../images/hero/image1.png" alt="">
+    <button id="startButton" onclick="next()">Start</button>
+</body>
+</html>
