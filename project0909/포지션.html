@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style>
+    /* 
+        postion : relative = > 상대 위치, 다른 태그 요소들과의 관계를 통함
+        postion : absolute => 부모를 기준으로 한 위치
+     */
+    div{
+        width: 200px;
+        height: 200px;
+        position: relative;
+    }
+    #box1{
+        background:red;
+        position: relative;
+        left: 300px;
+        top: 100px;
+    }
+    #box2{
+        position: absolute; /*부모를 기준으로 하므로, 부모는 body 절대위치는 다른 요소가 존재하더라도 중첩이 가능하다..
+                                     왜냐? 절대적이니까*/
+        left: 300px;
+        top: 150px;
+        background:blue;
+    }
+    #box3{
+        width: 50px;
+        height: 50px;
+        background:yellow;
+        position: absolute; /*부모를 기즌으로 한 위치 결정속성*/
+        left: 50px; /*box1을 기준으로 */
+        top: 30px;
+    }
+   /* #box4{
+        width: 50px;
+        height: 50px;
+        background:darkmagenta;
+    }*/
+</style>
+</head>
+<body>
+    <!-- 
+        html의 모든 태그 요소는, 개발자가 정의하지 않으면 기본적으로 상대위치(position: relative)를 적용받는다.
+        상대위치란? 다른 태그요소와의 관계에서 결정된 현재 나의 위치를 기준으로 한 배치
+     -->
+    <div id="box1">
+        <!-- 박스 1은 박스 3의 부모이다. -->
+        <div id="box3"></div>
+        <!-- <div id="box4"></div> -->
+    </div>
+    <div id="box2"></div>
+</body>
+</html>
