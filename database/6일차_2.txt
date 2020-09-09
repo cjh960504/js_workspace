@@ -1,0 +1,139 @@
+SQL> show user;
+USER is "USER0907"
+SQL> create table animal(
+  2  code number,
+  3  category varchar(20),
+  4  name varchar(20),
+  5  location varchar(20)
+  6  );\
+  7  
+SQL> ed;
+Wrote file afiedt.buf
+
+  1  create table animal(
+  2  code number,
+  3  category varchar(20),
+  4  name varchar(20),
+  5  location varchar(20)
+  6* );
+SQL> /
+);
+ *
+ERROR at line 6:
+ORA-00911: invalid character 
+
+
+SQL> ed;
+Wrote file afiedt.buf
+
+  1  create table animal(
+  2  code number,
+  3  category varchar(20),
+  4  name varchar(20),
+  5  location varchar(20)
+  6* )
+SQL> /
+
+Table created.
+
+SQL> desc animal
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ CODE                                                                                                                       NUMBER
+ CATEGORY                                                                                                                   VARCHAR2(20)
+ NAME                                                                                                                       VARCHAR2(20)
+ LOCATION                                                                                                                   VARCHAR2(20)
+
+SQL> desc animal
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ CODE                                                                                                                       NUMBER
+ CATEGORY                                                                                                                   VARCHAR2(20)
+ NAME                                                                                                                       VARCHAR2(20)
+ LOCATION                                                                                                                   VARCHAR2(20)
+
+SQL> select * from animal;
+
+      CODE CATEGORY                                 NAME                                     LOCATION                                                                                                   
+---------- ---------------------------------------- ---------------------------------------- ----------------------------------------                                                                   
+         1 議곕쪟                                   李몄깉                                   ？쒓뎅                                                                                                     
+         2 議곕쪟                                   ？낆닔                                   ？쒓뎅                                                                                                     
+         3 議곕쪟                                   源뚮쭏洹？                               ？쒓뎅                                                                                                     
+         4 議곕쪟                                   ？⑹깉                                   ？쒓뎅                                                                                                     
+
+SQL> drop table animal;
+
+Table dropped.
+
+SQL> create table animal(
+  2  code number,
+  3  category varchar(20),
+  4  name varchar(20),
+  5  location varchar(20)
+  6  );
+
+Table created.
+
+SQL> select * from animal;
+
+      CODE CATEGORY                                 NAME                                     LOCATION                                                                                                   
+---------- ---------------------------------------- ---------------------------------------- ----------------------------------------                                                                   
+         1 조류                                     참새                                     한국                                                                                                       
+         2 조류                                     독수                                     한국                                                                                                       
+         3 조류                                     까마귀                                   한국                                                                                                       
+         4 조류                                     황새                                     한국                                                                                                       
+         5 조류                                     앵무새                                   한국                                                                                                       
+         6 설치류                                   쥐                                       미국                                                                                                       
+         7 설치류                                   청설모                                   미국                                                                                                       
+         8 설치류                                   다람쥐                                   미국                                                                                                       
+         9 포유류                                   사자                                     아프리카대륙                                                                                               
+        10 포유류                                   호랑이                                   아프리카대륙                                                                                               
+        11 포유류                                   개                                       아프리카대륙                                                                                               
+        12 포유류                                   말                                       아프리카대륙                                                                                               
+        13 포유류                                   돼지                                     아프리카대륙                                                                                               
+        14 포유류                                   소                                       아프리카대륙                                                                                               
+        15 포유류                                   오랑우탄                                 아프리카대륙                                                                                               
+        16 어류                                     붕어                                     태평양                                                                                                     
+        17 어류                                     잉어                                     태평양                                                                                                     
+
+      CODE CATEGORY                                 NAME                                     LOCATION                                                                                                   
+---------- ---------------------------------------- ---------------------------------------- ----------------------------------------                                                                   
+        18 어류                                     가물치                                   태평양                                                                                                     
+        19 어류                                     도미                                     태평양                                                                                                     
+        20 어류                                     고등어                                   태평양                                                                                                     
+        21 어류                                     꽁치                                     태평양                                                                                                     
+
+21 rows selected.
+
+SQL> set pageline 20
+SP2-0158: unknown SET option "pageline"
+SQL> set pagesize 30
+SQL> select * from animal;
+
+      CODE CATEGORY                                 NAME                                     LOCATION                                                                                                   
+---------- ---------------------------------------- ---------------------------------------- ----------------------------------------                                                                   
+         1 조류                                     참새                                     한국                                                                                                       
+         2 조류                                     독수                                     한국                                                                                                       
+         3 조류                                     까마귀                                   한국                                                                                                       
+         4 조류                                     황새                                     한국                                                                                                       
+         5 조류                                     앵무새                                   한국                                                                                                       
+         6 설치류                                   쥐                                       미국                                                                                                       
+         7 설치류                                   청설모                                   미국                                                                                                       
+         8 설치류                                   다람쥐                                   미국                                                                                                       
+         9 포유류                                   사자                                     아프리카대륙                                                                                               
+        10 포유류                                   호랑이                                   아프리카대륙                                                                                               
+        11 포유류                                   개                                       아프리카대륙                                                                                               
+        12 포유류                                   말                                       아프리카대륙                                                                                               
+        13 포유류                                   돼지                                     아프리카대륙                                                                                               
+        14 포유류                                   소                                       아프리카대륙                                                                                               
+        15 포유류                                   오랑우탄                                 아프리카대륙                                                                                               
+        16 어류                                     붕어                                     태평양                                                                                                     
+        17 어류                                     잉어                                     태평양                                                                                                     
+        18 어류                                     가물치                                   태평양                                                                                                     
+        19 어류                                     도미                                     태평양                                                                                                     
+        20 어류                                     고등어                                   태평양                                                                                                     
+        21 어류                                     꽁치                                     태평양                                                                                                     
+
+21 rows selected.
+
+SQL> spool off

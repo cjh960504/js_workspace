@@ -1,0 +1,156 @@
+SQL> --group by 를 배움
+SQL> --group by 란? 말 그대로 레코드를 그룹으로 묶는 쿼리
+SQL> --묶기 때문에 집계함수와 관련성이 깊다. (거의 같이 쓴다.)
+SQL> --JOB의 이름 및 그 JOB 을 맡은 사원수를 출력
+SQL> select job, count(job) from emp group by job;
+
+JOB                COUNT(JOB)                                                                                                                                                                           
+------------------ ----------                                                                                                                                                                           
+CLERK                       4                                                                                                                                                                           
+SALESMAN                    4                                                                                                                                                                           
+PRESIDENT                   1                                                                                                                                                                           
+MANAGER                     3                                                                                                                                                                           
+ANALYST                     2                                                                                                                                                                           
+
+SQL> select job, count(job) from emp;
+select job, count(job) from emp
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select job as 직무, count(job) as 소속사원수 from emp group by job;
+
+직무               소속사원수                                                                                                                                                                           
+------------------ ----------                                                                                                                                                                           
+CLERK                       4                                                                                                                                                                           
+SALESMAN                    4                                                                                                                                                                           
+PRESIDENT                   1                                                                                                                                                                           
+MANAGER                     3                                                                                                                                                                           
+ANALYST                     2                                                                                                                                                                           
+
+SQL> select job, sum(sal) from emp group by job;
+
+JOB                  SUM(SAL)                                                                                                                                                                           
+------------------ ----------                                                                                                                                                                           
+CLERK                    4150                                                                                                                                                                           
+SALESMAN                 5600                                                                                                                                                                           
+PRESIDENT                5000                                                                                                                                                                           
+MANAGER                  8275                                                                                                                                                                           
+ANALYST                  6000                                                                                                                                                                           
+
+SQL> select * from dept;
+
+    DEPTNO DNAME                        LOC                                                                                                                                                             
+---------- ---------------------------- --------------------------                                                                                                                                      
+        10 ACCOUNTING                   NEW YORK                                                                                                                                                        
+        20 RESEARCH                     DALLAS                                                                                                                                                          
+        30 SALES                        CHICAGO                                                                                                                                                         
+        40 OPERATIONS                   BOSTON                                                                                                                                                          
+
+SQL> select deptno, avg(sal) from emp group by deptno;
+
+    DEPTNO   AVG(SAL)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+        30 1566.66667                                                                                                                                                                                   
+        20       2175                                                                                                                                                                                   
+        10 2916.66667                                                                                                                                                                                   
+
+SQL> select deptno, avg(sal) from emp where ename='ADAMS' group by deptno;
+
+    DEPTNO   AVG(SAL)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+        20       1100                                                                                                                                                                                   
+
+SQL> select deptno, sum(sal) from emp where ename='ADAMS' group by deptno;
+
+    DEPTNO   SUM(SAL)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+        20       1100                                                                                                                                                                                   
+
+SQL> select deptno, sum(sal) from emp where deptno = (select deptno from emp where ename='ADAMS')group by deptno;
+
+    DEPTNO   SUM(SAL)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+        20      10875                                                                                                                                                                                   
+
+SQL> select deptno, sum(sal) from emp group by deptno;
+
+    DEPTNO   SUM(SAL)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+        30       9400                                                                                                                                                                                   
+        20      10875                                                                                                                                                                                   
+        10       8750                                                                                                                                                                                   
+
+SQL> select deptno, avg(sal) from emp inner join dept;
+select deptno, avg(sal) from emp inner join dept
+                                               *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> select deptno, avg(sal) from emp, dept where emp.deptno = dept.deptno;
+select deptno, avg(sal) from emp, dept where emp.deptno = dept.deptno
+       *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL> select emp.deptno, avg(sal) from emp, dept where emp.deptno = dept.deptno;
+select emp.deptno, avg(sal) from emp, dept where emp.deptno = dept.deptno
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select emp.deptname, avg(sal) from emp, dept where emp.deptno = dept.deptno group by deptname;
+select emp.deptname, avg(sal) from emp, dept where emp.deptno = dept.deptno group by deptname
+                                                                                     *
+ERROR at line 1:
+ORA-00904: "DEPTNAME": invalid identifier 
+
+
+SQL> select dept.dname, avg(sal) from emp, dept where emp.deptno = dept.deptno group by dname;
+
+DNAME                          AVG(SAL)                                                                                                                                                                 
+---------------------------- ----------                                                                                                                                                                 
+ACCOUNTING                   2916.66667                                                                                                                                                                 
+RESEARCH                           2175                                                                                                                                                                 
+SALES                        1566.66667                                                                                                                                                                 
+
+SQL> selelct deptno, sum(sal) from emp where mgr = (select mgr from emp where ename='ADAMS') group by deptno;
+SP2-0734: unknown command beginning "selelct de..." - rest of line ignored.
+SQL> select deptno, sum(sal) from emp where mgr = (select mgr from emp where ename='ADAMS') group by deptno;
+
+    DEPTNO   SUM(SAL)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+        20       1100                                                                                                                                                                                   
+
+SQL> select deptno, sum(sal) from emp where deptno = (select deptno from emp where mgr ) group by ;
+select deptno, sum(sal) from emp where deptno = (select deptno from emp where mgr ) group by 
+                                                                                  *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> de
+SP2-0042: unknown command "de" - rest of line ignored.
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select sum(sal) from emp where deptno = (select deptno from emp where mgr = (select mgr from emp where ename='ADAMS'))
+SQL> /
+
+  SUM(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+     10875                                                                                                                                                                                              
+
+SQL> spool off;
+
+오라클의 sqlplus 툴에는 대량의 데이터를 덤프(한꺼번에)로 읽어들일 수 있는 기능이 숨어있다.
+이 기능을 이용하려면, 오라클에서만 사용되는 특별한 명령어 파일을 사용해야 한다.. (컨트롤 파일 확장자가 ctl)
+
+csv파일과 ctl파일이 공존해야 준비 완료
+
+DOS창에서 파일이 있는 곳을 cd한 후 
+SQLLDR user0907/1234 control='animal.ctl' data='animal.csv'

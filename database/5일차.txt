@@ -1,0 +1,823 @@
+SQL> show user;
+USER is "SYSTEM"
+SQL> --µñ¼Å³Ê¸® (½Ã½ºÅÛ¿¡¼­ Áö¿øÇÏ´Â Å×ÀÌºí)
+SQL> --¼ö¹é¿©°¡Áö¶ó¼­ ¿Ü¿ì±â Èûµë
+SQL> -- Á¢µÎ¾î dba_ ÀÌ¿ë, ÀÏ¹Ý»ç¿ëÀÚ´Â user_r_
+SQL> select username from dba_users;
+
+USERNAME                                                                        
+------------------------------------------------------------                    
+USER0907_2                                                                      
+USER0907                                                                        
+DEV                                                                             
+WNS                                                                             
+HYUK                                                                            
+CHOI                                                                            
+JAVA                                                                            
+HR                                                                              
+ANONYMOUS                                                                       
+FLOWS_FILES                                                                     
+APEX_040000                                                                     
+
+USERNAME                                                                        
+------------------------------------------------------------                    
+MDSYS                                                                           
+CTXSYS                                                                          
+DBSNMP                                                                          
+XDB                                                                             
+APPQOSSYS                                                                       
+MYJSP                                                                           
+SYS                                                                             
+SYSTEM                                                                          
+APEX_PUBLIC_USER                                                                
+OUTLN                                                                           
+DIP                                                                             
+
+USERNAME                                                                        
+------------------------------------------------------------                    
+ORACLE_OCM                                                                      
+XS$NULL                                                                         
+
+24 rows selected.
+
+SQL> conn user0907/1234;
+Connected.
+SQL> -- sql ¹®ÀÌ ¾Æ´Ï¶ó SQLPlus Åø ¸í·É¾î
+SQL> set line 200
+SQL> select * from emp;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 rows selected.
+
+SQL> -- ÆäÀÌÁö´ç º¸¿©Áú ·¹ÄÚµå¼ö¸¦ ´Ã¸®ÀÚ
+SQL> set pagesize 20
+SQL> /\
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 rows selected.
+
+SQL> select avg(sal) as avg_sal from emp;
+
+   AVG_SAL                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+2073.21429                                                                                                                                                                                              
+
+SQL> select avg(sal) as avg_sal from emp group by deptno;
+
+   AVG_SAL                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+1566.66667                                                                                                                                                                                              
+      2175                                                                                                                                                                                              
+2916.66667                                                                                                                                                                                              
+
+SQL> select deptno, avg(sal) as avg_sal from emp group by deptno;
+
+    DEPTNO    AVG_SAL                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+        30 1566.66667                                                                                                                                                                                   
+        20       2175                                                                                                                                                                                   
+        10 2916.66667                                                                                                                                                                                   
+
+SQL> -- Æò±Õ±Þ¿©º¸´Ù ³ôÀº ±Þ¿©¸¦ ¹Þ´Â »ç¿øÀÇ ÀÌ¸§, ±Þ¿©¸¦ Ãâ·ÂÇÏ½Ã¿À
+SQL> select ename, sal from emp where avg(sal)<sal;
+select ename, sal from emp where avg(sal)<sal
+                                 *
+ERROR at line 1:
+ORA-00934: group function is not allowed here 
+
+
+SQL> select ename, sal from emp where sal>avg(sal);
+select ename, sal from emp where sal>avg(sal)
+                                     *
+ERROR at line 1:
+ORA-00934: group function is not allowed here 
+
+
+SQL> select ename, sal from (;
+select ename, sal from (
+                       *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> select ename, sal from (
+  2  select ename, sal, avg(sal)
+  3  from emp
+  4  )
+  5  );
+)
+*
+ERROR at line 5:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select ename, sal from (
+  2  select ename, sal, avg(sal) as avg_sal
+  3  )
+  4  where avg_sal<sal;
+)
+*
+ERROR at line 3:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename, sal from emp where sal > (select avg(sal) from enp)
+SQL> 
+SQL> .
+SQL> /
+select ename, sal from emp where sal > (select avg(sal) from enp)
+                                                             *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename, sal from emp where sal > (select avg(sal) from enp)
+SQL> /
+select ename, sal from emp where sal > (select avg(sal) from enp)
+                                                             *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename, sal from emp where sal > (select avg(sal) from emp)
+SQL> /
+
+ENAME                       SAL                                                                                                                                                                         
+-------------------- ----------                                                                                                                                                                         
+JONES                      2975                                                                                                                                                                         
+BLAKE                      2850                                                                                                                                                                         
+CLARK                      2450                                                                                                                                                                         
+SCOTT                      3000                                                                                                                                                                         
+KING                       5000                                                                                                                                                                         
+FORD                       3000                                                                                                                                                                         
+
+6 rows selected.
+
+SQL> -- ¼­ºêÄõ¸®(sub query)
+SQL> select ename, hiredate from emp where deptno = (select deptno from emp where ename='ALLEN') order by desc;
+select ename, hiredate from emp where deptno = (select deptno from emp where ename='ALLEN') order by desc
+                                                                                                     *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select ename, hiredate from emp where deptno = (select deptno from emp where ename='ALLEN') order by asc;
+select ename, hiredate from emp where deptno = (select deptno from emp where ename='ALLEN') order by asc
+                                                                                                     *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select ename, hiredate from emp where deptno = (select deptno from emp where ename='ALLEN') order by asc;
+select ename, hiredate from emp where deptno = (select deptno from emp where ename='ALLEN') order by asc
+                                                                                                     *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> /
+select ename, hiredate from emp where deptno = (select deptno from emp where ename='ALLEN') order by asc
+                                                                                                     *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename, hiredate from emp where deptno = (select deptno from emp where ename='ALLEN') 
+SQL> /
+
+ENAME                HIREDATE                                                                                                                                                                           
+-------------------- --------                                                                                                                                                                           
+ALLEN                81/02/20                                                                                                                                                                           
+WARD                 81/02/22                                                                                                                                                                           
+MARTIN               81/09/28                                                                                                                                                                           
+BLAKE                81/05/01                                                                                                                                                                           
+TURNER               81/09/08                                                                                                                                                                           
+JAMES                81/12/03                                                                                                                                                                           
+
+6 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename, hiredate from emp where deptno = (select deptno from emp where ename='ALLEN') ORDER BY desc
+SQL> /
+select ename, hiredate from emp where deptno = (select deptno from emp where ename='ALLEN') ORDER BY desc
+                                                                                                     *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename, hiredate from emp where deptno = (select deptno from emp where ename='ALLEN') ORDER BY hiredate desc
+SQL> /
+
+ENAME                HIREDATE                                                                                                                                                                           
+-------------------- --------                                                                                                                                                                           
+JAMES                81/12/03                                                                                                                                                                           
+MARTIN               81/09/28                                                                                                                                                                           
+TURNER               81/09/08                                                                                                                                                                           
+BLAKE                81/05/01                                                                                                                                                                           
+WARD                 81/02/22                                                                                                                                                                           
+ALLEN                81/02/20                                                                                                                                                                           
+
+6 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename, hiredate from emp where deptno = (select deptno from emp where ename='ALLEN') ORDER BY sal desc
+SQL> /
+
+ENAME                HIREDATE                                                                                                                                                                           
+-------------------- --------                                                                                                                                                                           
+BLAKE                81/05/01                                                                                                                                                                           
+ALLEN                81/02/20                                                                                                                                                                           
+TURNER               81/09/08                                                                                                                                                                           
+WARD                 81/02/22                                                                                                                                                                           
+MARTIN               81/09/28                                                                                                                                                                           
+JAMES                81/12/03                                                                                                                                                                           
+
+6 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename, hiredate from emp where hiredate < (select max(sal) from emp)
+SQL> /
+select ename, hiredate from emp where hiredate < (select max(sal) from emp)
+                                               *
+ERROR at line 1:
+ORA-00932: inconsistent datatypes: expected DATE got NUMBER 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename, hiredate from emp where hiredate < (select hiredate, max(sal) from emp)
+SQL> /
+select ename, hiredate from emp where hiredate < (select hiredate, max(sal) from emp)
+                                                  *
+ERROR at line 1:
+ORA-00913: too many values 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate from emp where hiredate < (select hiredate from emp where 
+  2* (select max(sal) from emp)
+SQL> /
+select ename, hiredate from emp where hiredate < (select hiredate from emp where 
+                                                  *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select sum(sal) as t_sum_sal from emp where empno = (select empno from emp where 
+  2* ename like '%T%')
+SQL> /
+select sum(sal) as t_sum_sal from emp where empno = (select empno from emp where 
+                                                     *
+ERROR at line 1:
+ORA-01427: single-row subquery returns more than one row 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select sum(sal) as t_sum_sal from emp where (select empno from emp where 
+  2* ename like '%T%')
+SQL> /
+ename like '%T%')
+                *
+ERROR at line 2:
+ORA-00936: missing expression 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select sum(sal) as t_sum_sal from emp where ename like '%T%'
+SQL> /
+
+ T_SUM_SAL                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      6550                                                                                                                                                                                              
+
+SQL> select empno, ename, sal from emp where sal > (select
+  2  max(sal) from emp where deptno = 20);
+
+     EMPNO ENAME                       SAL                                                                                                                                                              
+---------- -------------------- ----------                                                                                                                                                              
+      7839 KING                       5000                                                                                                                                                              
+
+SQL> select ename, sal from emp where sal < (select (sal-1000) from emp whereename='SCOTT');
+select ename, sal from emp where sal < (select (sal-1000) from emp whereename='SCOTT')
+                                                                             *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select ename, sal from emp where (sal+1000) < (select from emp whereename='SCOTT');
+select ename, sal from emp where (sal+1000) < (select from emp whereename='SCOTT')
+                                                      *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select ename, sal from emp where (sal+1000) < (select sal from emp whereename='SCOTT');
+select ename, sal from emp where (sal+1000) < (select sal from emp whereename='SCOTT')
+                                                                             *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select ename, sal from emp where sal < (select sal from emp whereename='SCOTT')-1000;
+select ename, sal from emp where sal < (select sal from emp whereename='SCOTT')-1000
+                                                                      *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select ename, sal from emp where sal < (select sal from emp where ename='SCOTT');
+
+ENAME                       SAL                                                                                                                                                                         
+-------------------- ----------                                                                                                                                                                         
+SMITH                       800                                                                                                                                                                         
+ALLEN                      1600                                                                                                                                                                         
+WARD                       1250                                                                                                                                                                         
+JONES                      2975                                                                                                                                                                         
+MARTIN                     1250                                                                                                                                                                         
+BLAKE                      2850                                                                                                                                                                         
+CLARK                      2450                                                                                                                                                                         
+TURNER                     1500                                                                                                                                                                         
+ADAMS                      1100                                                                                                                                                                         
+JAMES                       950                                                                                                                                                                         
+MILLER                     1300                                                                                                                                                                         
+
+11 rows selected.
+
+SQL> select ename, sal from emp where sal < (select sal from emp where ename='SCOTT' and sal = sal -1000);
+
+no rows selected
+
+SQL> select ename, sal from emp where sal < (select sal from emp where ename='SCOTT' and sal =- 1000);
+
+no rows selected
+
+SQL> select ename, sal from emp where sal < (select sal from emp where ename='SCOTT' and sal -1000);
+select ename, sal from emp where sal < (select sal from emp where ename='SCOTT' and sal -1000)
+                                                                                             *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select ename, sal from emp where sal < (select sal from emp where ename='SCOTT' and sal = sal - 1000);
+
+no rows selected
+
+SQL> select ename, sal from emp where (sal=sal+1000) < (select sal from emp where ename='SCOTT');
+select ename, sal from emp where (sal=sal+1000) < (select sal from emp where ename='SCOTT')
+                                                *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select ename, sal from emp where sal < (select sal from (select * from emp where sal = sal - 1000) where ename='SCOTT');
+
+no rows selected
+
+SQL> select ename, sal from emp where sal < (select sal-1000 from where ename='SCOTT');
+select ename, sal from emp where sal < (select sal-1000 from where ename='SCOTT')
+                                                             *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> select ename, sal from emp where sal < (select sal-1000 from emp where ename='SCOTT');
+
+ENAME                       SAL                                                                                                                                                                         
+-------------------- ----------                                                                                                                                                                         
+SMITH                       800                                                                                                                                                                         
+ALLEN                      1600                                                                                                                                                                         
+WARD                       1250                                                                                                                                                                         
+MARTIN                     1250                                                                                                                                                                         
+TURNER                     1500                                                                                                                                                                         
+ADAMS                      1100                                                                                                                                                                         
+JAMES                       950                                                                                                                                                                         
+MILLER                     1300                                                                                                                                                                         
+
+8 rows selected.
+
+SQL> select ename from emp where ename like 'S%' AND '%H';
+select ename from emp where ename like 'S%' AND '%H'
+                                                   *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select ename from emp where ename like 'S%' AND ename like '%H';
+
+ENAME                                                                                                                                                                                                   
+--------------------                                                                                                                                                                                    
+SMITH                                                                                                                                                                                                   
+
+SQL> select ename, sal from emp where sal > (select avg(sal) from emp where deptno=(select deptno from emp where ename='WARD');
+select ename, sal from emp where sal > (select avg(sal) from emp where deptno=(select deptno from emp where ename='WARD')
+                                        *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, sal from emp where 
+  2  sal > (select avg(sal) from emp where 
+  3  deptno=(select deptno from emp 
+  4* where ename='WARD'))
+SQL> /
+
+ENAME                       SAL                                                                                                                                                                         
+-------------------- ----------                                                                                                                                                                         
+ALLEN                      1600                                                                                                                                                                         
+JONES                      2975                                                                                                                                                                         
+BLAKE                      2850                                                                                                                                                                         
+CLARK                      2450                                                                                                                                                                         
+SCOTT                      3000                                                                                                                                                                         
+KING                       5000                                                                                                                                                                         
+FORD                       3000                                                                                                                                                                         
+
+7 rows selected.
+
+SQL> select ename, hiredate from emp where hiredate < (select hiredate from emp where empno = (select empno, max(sal) from emp));
+select ename, hiredate from emp where hiredate < (select hiredate from emp where empno = (select empno, max(sal) from emp))
+                                                                                          *
+ERROR at line 1:
+ORA-00913: too many values 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select ename, hiredate from emp where hiredate < (select hiredate, max(sal) from emp)
+SQL> /
+select ename, hiredate from emp where hiredate < (select hiredate, max(sal) from emp)
+                                                  *
+ERROR at line 1:
+ORA-00913: too many values 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate from emp 
+  2* where hiredate > (select hiredate from emp where sal >= (select * from emp))
+SQL> /
+where hiredate > (select hiredate from emp where sal >= (select * from emp))
+                                                         *
+ERROR at line 2:
+ORA-00913: too many values 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate from emp 
+  2  where hiredate > (select hiredate from emp 
+  3* where sal = (select max(sal) from emp))
+SQL> /
+
+ENAME                HIREDATE                                                                                                                                                                           
+-------------------- --------                                                                                                                                                                           
+SCOTT                87/04/19                                                                                                                                                                           
+ADAMS                87/05/23                                                                                                                                                                           
+JAMES                81/12/03                                                                                                                                                                           
+FORD                 81/12/03                                                                                                                                                                           
+MILLER               82/01/23                                                                                                                                                                           
+
+SQL> ÃÖ´ë±Þ¿©¸¦ ¹Þ´Â »ç¿øº¸´Ù ÀÔ»çÀÏÀÌ ´ÊÀº »ç¿øÀÇ ÀÌ¸§, ÀÔ»çÀÏÀ» Ãâ·ÂÇÏ¼¼¿ä.
+SP2-0734: unknown command beginning "ÃÖ´ë±Þ¿©¸¦..." - rest of line ignored.
+SQL> ed
+Wrote file afiedt.buf
+
+  1* -- ìµœëŒ€ê¸‰ì—¬ë¥¼ ë°›ëŠ” ì‚¬ì›ë³´ë‹¤ ìž…ì‚¬ì¼ì´ ëŠ¦ì€ ì‚¬ì›ì˜ ì´ë¦„, ìž…ì‚¬ì¼ì„ ì¶œë ¥í•˜ì„¸ìš”.
+SQL> select sum(sal) from emp where ename like '%T%';
+
+  SUM(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      6550                                                                                                                                                                                              
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select sum(sal) as ê¸‰ì—¬í•© from emp where ename like '%T%'
+SQL> /
+select sum(sal) as ê¸‰ì—¬í•© from emp where ename like '%T%'
+                                     *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select sum(sal) from emp where ename like '%T%'
+SQL> /
+
+  SUM(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      6550                                                                                                                                                                                              
+
+SQL> select empno, ename, sal from emp where sal > (select max(sal) from emp where deptno = 20);
+
+     EMPNO ENAME                       SAL                                                                                                                                                              
+---------- -------------------- ----------                                                                                                                                                              
+      7839 KING                       5000                                                                                                                                                              
+
+SQL> select ename, hiredate from emp where hiredate > (select hiredate from emp where sal = (select max(sal) from emp));
+
+ENAME                HIREDATE                                                                                                                                                                           
+-------------------- --------                                                                                                                                                                           
+SCOTT                87/04/19                                                                                                                                                                           
+ADAMS                87/05/23                                                                                                                                                                           
+JAMES                81/12/03                                                                                                                                                                           
+FORD                 81/12/03                                                                                                                                                                           
+MILLER               82/01/23                                                                                                                                                                           
+
+SQL> select ename, sal from emp where sal < (select sal-1000 from emp where ename='SCOTT');
+
+ENAME                       SAL                                                                                                                                                                         
+-------------------- ----------                                                                                                                                                                         
+SMITH                       800                                                                                                                                                                         
+ALLEN                      1600                                                                                                                                                                         
+WARD                       1250                                                                                                                                                                         
+MARTIN                     1250                                                                                                                                                                         
+TURNER                     1500                                                                                                                                                                         
+ADAMS                      1100                                                                                                                                                                         
+JAMES                       950                                                                                                                                                                         
+MILLER                     1300                                                                                                                                                                         
+
+8 rows selected.
+
+SQL> select sal from emp where ename='SCOTT';
+
+       SAL                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      3000                                                                                                                                                                                              
+
+SQL> select ename, sal from emp where sal < 2000;
+
+ENAME                       SAL                                                                                                                                                                         
+-------------------- ----------                                                                                                                                                                         
+SMITH                       800                                                                                                                                                                         
+ALLEN                      1600                                                                                                                                                                         
+WARD                       1250                                                                                                                                                                         
+MARTIN                     1250                                                                                                                                                                         
+TURNER                     1500                                                                                                                                                                         
+ADAMS                      1100                                                                                                                                                                         
+JAMES                       950                                                                                                                                                                         
+MILLER                     1300                                                                                                                                                                         
+
+8 rows selected.
+
+SQL> select ename, sal from emp where sal < (select sal from emp where ename='SCOTT')-1000;
+
+ENAME                       SAL                                                                                                                                                                         
+-------------------- ----------                                                                                                                                                                         
+SMITH                       800                                                                                                                                                                         
+ALLEN                      1600                                                                                                                                                                         
+WARD                       1250                                                                                                                                                                         
+MARTIN                     1250                                                                                                                                                                         
+TURNER                     1500                                                                                                                                                                         
+ADAMS                      1100                                                                                                                                                                         
+JAMES                       950                                                                                                                                                                         
+MILLER                     1300                                                                                                                                                                         
+
+8 rows selected.
+
+SQL> select ename from emp where ename like 'S%' AND ename like '%H';
+
+ENAME                                                                                                                                                                                                   
+--------------------                                                                                                                                                                                    
+SMITH                                                                                                                                                                                                   
+
+SQL> select ename from emp where ename like 'S%H';
+
+ENAME                                                                                                                                                                                                   
+--------------------                                                                                                                                                                                    
+SMITH                                                                                                                                                                                                   
+
+SQL> select ename, sal from emp where sal > (select avg(sal) from emp where deptno = ( select deptno from emp where ename='WARD'));
+
+ENAME                       SAL                                                                                                                                                                         
+-------------------- ----------                                                                                                                                                                         
+ALLEN                      1600                                                                                                                                                                         
+JONES                      2975                                                                                                                                                                         
+BLAKE                      2850                                                                                                                                                                         
+CLARK                      2450                                                                                                                                                                         
+SCOTT                      3000                                                                                                                                                                         
+KING                       5000                                                                                                                                                                         
+FORD                       3000                                                                                                                                                                         
+
+7 rows selected.
+
+SQL> select * distinct from emp;
+select * distinct from emp
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select  distinct job from emp;
+
+JOB                                                                                                                                                                                                     
+------------------                                                                                                                                                                                      
+CLERK                                                                                                                                                                                                   
+SALESMAN                                                                                                                                                                                                
+PRESIDENT                                                                                                                                                                                               
+MANAGER                                                                                                                                                                                                 
+ANALYST                                                                                                                                                                                                 
+
+SQL> select job as ´ã´ç¾÷¹«, count(*) as »ç¿ø¼ö from emp group by job;
+
+´ã´ç¾÷¹«               »ç¿ø¼ö                                                                                                                                                                           
+------------------ ----------                                                                                                                                                                           
+CLERK                       4                                                                                                                                                                           
+SALESMAN                    4                                                                                                                                                                           
+PRESIDENT                   1                                                                                                                                                                           
+MANAGER                     3                                                                                                                                                                           
+ANALYST                     2                                                                                                                                                                           
+
+SQL> select job as ´ã´ç¾÷¹«, count(job) as »ç¿ø¼ö from emp group by job;
+
+´ã´ç¾÷¹«               »ç¿ø¼ö                                                                                                                                                                           
+------------------ ----------                                                                                                                                                                           
+CLERK                       4                                                                                                                                                                           
+SALESMAN                    4                                                                                                                                                                           
+PRESIDENT                   1                                                                                                                                                                           
+MANAGER                     3                                                                                                                                                                           
+ANALYST                     2                                                                                                                                                                           
+
+SQL> select * from emp;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 rows selected.
+
+SQL> select job from emp group by job;
+
+JOB                                                                                                                                                                                                     
+------------------                                                                                                                                                                                      
+CLERK                                                                                                                                                                                                   
+SALESMAN                                                                                                                                                                                                
+PRESIDENT                                                                                                                                                                                               
+MANAGER                                                                                                                                                                                                 
+ANALYST                                                                                                                                                                                                 
+
+SQL> select ename, job from emp group by job;
+select ename, job from emp group by job
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select ename, job from emp group by job, ename;
+
+ENAME                JOB                                                                                                                                                                                
+-------------------- ------------------                                                                                                                                                                 
+WARD                 SALESMAN                                                                                                                                                                           
+CLARK                MANAGER                                                                                                                                                                            
+FORD                 ANALYST                                                                                                                                                                            
+MILLER               CLERK                                                                                                                                                                              
+SMITH                CLERK                                                                                                                                                                              
+SCOTT                ANALYST                                                                                                                                                                            
+TURNER               SALESMAN                                                                                                                                                                           
+BLAKE                MANAGER                                                                                                                                                                            
+KING                 PRESIDENT                                                                                                                                                                          
+ADAMS                CLERK                                                                                                                                                                              
+JONES                MANAGER                                                                                                                                                                            
+MARTIN               SALESMAN                                                                                                                                                                           
+JAMES                CLERK                                                                                                                                                                              
+ALLEN                SALESMAN                                                                                                                                                                           
+
+14 rows selected.
+
+SQL> select ename, job from emp order by job asc;
+
+ENAME                JOB                                                                                                                                                                                
+-------------------- ------------------                                                                                                                                                                 
+SCOTT                ANALYST                                                                                                                                                                            
+FORD                 ANALYST                                                                                                                                                                            
+MILLER               CLERK                                                                                                                                                                              
+JAMES                CLERK                                                                                                                                                                              
+SMITH                CLERK                                                                                                                                                                              
+ADAMS                CLERK                                                                                                                                                                              
+BLAKE                MANAGER                                                                                                                                                                            
+JONES                MANAGER                                                                                                                                                                            
+CLARK                MANAGER                                                                                                                                                                            
+KING                 PRESIDENT                                                                                                                                                                          
+TURNER               SALESMAN                                                                                                                                                                           
+MARTIN               SALESMAN                                                                                                                                                                           
+WARD                 SALESMAN                                                                                                                                                                           
+ALLEN                SALESMAN                                                                                                                                                                           
+
+14 rows selected.
+
+SQL> -- group by »ç¿ë ½Ã ÁÖÀÇÇÒ Á¡  group by¿¡ ¸í½ÃÇÑ ÄÃ·³¸¸ÀÌ, selectÀýÀÇ ´ë»óÀÌ µÉ ¼ö ÀÖ´Ù.
+SQL> -- but, Áý°èÇÔ¼ö´Â ÀÌ¹Ì ±×·ìÈ­µÇ¾î ÀÖ¾î group by°¡ ÇÊ¿ä¾ø´Ù.
+SQL> select job, count(job) from emp group by job;
+
+JOB                COUNT(JOB)                                                                                                                                                                           
+------------------ ----------                                                                                                                                                                           
+CLERK                       4                                                                                                                                                                           
+SALESMAN                    4                                                                                                                                                                           
+PRESIDENT                   1                                                                                                                                                                           
+MANAGER                     3                                                                                                                                                                           
+ANALYST                     2                                                                                                                                                                           
+
+SQL> select ename, distinct job from emp;
+select ename, distinct job from emp
+              *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select distinct job from emp;
+
+JOB                                                                                                                                                                                                     
+------------------                                                                                                                                                                                      
+CLERK                                                                                                                                                                                                   
+SALESMAN                                                                                                                                                                                                
+PRESIDENT                                                                                                                                                                                               
+MANAGER                                                                                                                                                                                                 
+ANALYST                                                                                                                                                                                                 
+
+SQL> spool off;
