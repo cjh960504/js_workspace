@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 400px;
+            height:300px;
+            background-color:yellow;
+            font-size: 170px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        var num=0;
+        var check, check2;
+        function checkCount(){
+            num++;
+            check = (num%10==3)||(num%10==6)||(num%10==9)?"박수":num;
+            document.getElementById("box").innerText=check; //안쪽에 있는 text = innerText
+        }
+    </script>
+</head>
+<body>
+    <button onclick="checkCount()">카운터 증가</button>
+    <div id="box">0</div>
+</body>
+</html>

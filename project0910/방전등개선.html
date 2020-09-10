@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:800px;
+            height: 600px;
+            position: relative;
+            margin:auto;
+        }
+        /* 자식요소에 position을 명시하면 반드시 부모에도 position이 명시되어있어야한다. */
+        #content{
+            position: absolute;
+            left:100px;
+            top:0px;
+        }
+        #code{
+            width: 100px;
+            height: 100%;
+            background:#cccccc;
+            position: relative;
+
+        }
+        #mask{
+            width: 700px;
+            height: 100%;
+            opacity: 1;
+            position: relative;
+          
+        }
+        img{
+            position: relative;
+         
+        }
+    </style>
+    <script>
+        var onOff = 1;
+        var color = "black";
+        var right;
+        function turn(){
+            //버튼을 누를때마다, 현재 배경색상의 반대색상으로 처리하자.
+            //불켜고, 끄는 효과를 낼 수 있다.
+            color= (onOff = !onOff)?"white":"black";
+            right =(onOff)?1:0.2;
+            document.getElementById("switchBt").src="../images/right/"+color+".png";
+           
+        }
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="code"></div>
+        <div id="content">
+            <!-- mask와 img는 content라는 같은 부모를 두고 위치를 결정해주자 -->
+            <div id="mask"></div>
+            <img src="../images/right/room.jpg" width="700px" height="100%" alt="">
+        </div>
+    </div>
+</body>
+</html>

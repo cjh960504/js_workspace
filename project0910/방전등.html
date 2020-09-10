@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:800px;
+            height: 600px;
+            margin:auto;
+            overflow: hidden;
+        }
+        #code{
+            width: 100px;
+            height: 100%;
+            background:#cccccc;
+            float: left;
+        }
+        #mask{
+            width: 700px;
+            height: 100%;
+            opacity: 1;
+            float: left;
+        }
+        #room{
+            width: 100%;
+            height: 100%;
+            float: left;
+        }
+    </style>
+    <script>
+        var onOff = 1;
+        var color = "black";
+        var right;
+        function turn(){
+            //버튼을 누를때마다, 현재 배경색상의 반대색상으로 처리하자.
+            //불켜고, 끄는 효과를 낼 수 있다.
+            color= (onOff = !onOff)?"white":"black";
+            right =(onOff)?1:0.2;
+            document.getElementById("switchBt").src="../images/right/"+color+".png";
+           
+        }
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="code">
+            <button onclick="turn()"><img id="switchBt" src="../images/right/black.png"></button>
+        </div>
+        <div id="mask">
+                <div id="room">
+                    <img src="../images/right/room.jpg" width="700px" height="100%" alt="">
+                </div>
+            </div>
+        </div>
+</body>
+</html>

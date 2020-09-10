@@ -1,5 +1,5 @@
 
-SQL*Loader: Release 11.2.0.2.0 - Production on 수 9월 9 17:08:40 2020
+SQL*Loader: Release 11.2.0.2.0 - Production on 수 9월 9 21:41:46 2020
 
 Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
 
@@ -46,8 +46,8 @@ Total logical records read:            22
 Total logical records rejected:         1
 Total logical records discarded:        0
 
-Run began on 수 9월  09 17:08:40 2020
-Run ended on 수 9월  09 17:08:40 2020
+Run began on 수 9월  09 21:41:46 2020
+Run ended on 수 9월  09 21:41:46 2020
 
 Elapsed time was:     00:00:00.08
-CPU time was:         00:00:00.04
+CPU time was:         00:00:00.06

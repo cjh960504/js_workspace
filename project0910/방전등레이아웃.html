@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+        /* ----------자식요소에 position을 명시하면 반드시 부모에도 position이 명시되어있어야한다.----------- */
+            width: 800px;
+            height: 600px;
+            background: red;
+            position: relative;
+            margin: auto;
+        }
+        /* wrapper의 자식인 code, content를 부모를 기준으로 배치할 것임 */
+        #code{
+            width: 100px;
+            height: 100%;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            background: #dfdfdf;
+        }
+        #content{
+            width: 700px;
+            height: 100%;
+            position: absolute;
+            left: 100px;
+            top: 0px;
+            background: green;
+        }
+        #mask{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            opacity: 0.8;
+            background: black;
+        }
+       #room{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+    </style>
+    <script>
+        var flagSwitch = false;
+        var status = "on";
+        var opSize;
+        var right;
+        function turn(){
+            // 문서내의 pic요소의 src속성을 변경하자!!
+            status = (flagSwitch = !flagSwitch)?"on":"off"
+            document.getElementById("pic").src="../images/right/switch_"+status+".png";
+            opSize = (status=="on")?0:0.8;
+            document.getElementById("mask").style.opacity=opSize;
+        }
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="code">
+            <img id="pic" src="../images/right/switch_off.png" onClick="turn()"/>
+        </div>
+        <div id="content">
+            <!-- mask와 img는 content라는 같은 부모를 두고 위치를 결정해주자 -->
+            <img id="room" src="../images/right/room.jpg" width="700px" height="100%" alt="">
+            <div id="mask"></div>
+        </div>
+    </div>
+</body>
+</html>

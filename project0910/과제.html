@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+            background:red;
+            border-radius: 50%;
+            position: absolute;
+            left: 0px;
+            top: 200px;
+        }
+    </style>
+    <script>
+        var x = 0;
+        var direction=true;
+        
+        function moveBox(){
+            direction =( x>=500)||(!direction)?false:true;
+            direction = (x<=0)||(direction)?true:false;
+            x+=direction?100:-100;
+            document.getElementById("box").style.left = x+"px";
+        }
+    </script>
+</head>
+<body>
+    <button onclick="moveBox()">움직이기</button>
+    <div id="box"></div>
+
+</body>
+</html>

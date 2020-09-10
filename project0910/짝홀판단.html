@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function openPrompt(){
+            //자바스크립트에 이미 내장된, 함수인 prompt()를 호출해보자.
+            var num =  prompt(); //입력값 반환
+
+            // 문서내의 result라 불리는 아이디를 갖는 요소의 value값에 결과문자를 넣자
+            var tf = ((num%2)==0)?"짝수입니다.":"홀수입니다.";
+            var color = ((num%2)==0)?"yellow":"red";
+             document.getElementById("result").placeholder=tf;
+             document.getElementById("result").style.background=color;
+           /*  if((num%2 )== 0){
+                // alert("짝수입니다.")
+                document.getElementById("result").value="짝수네용"
+            }else{
+                // alert("홀수입니다.")
+                document.getElementById("result").value="홀수네용"
+            }
+            
+         */
+        }
+    </script>
+</head>
+<body>
+    <button onclick="openPrompt()">프롬프트 띄우기</button>
+    <!-- 아래의 텍스트박스에 짝수인지 홀수인지 여부를 출력할려고... -->
+    <input id="result" type="text" placeholder="결과를 기다리고 있어요..."  style=font-weight:bold readonly/>
+</body>
+</html>
