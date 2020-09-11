@@ -5,6 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        #wrapper{
+            width: 700px;
+            height: 500px;
+            background:blueviolet;
+            position:relative;
+            left: 0px;
+            top: 0px;
+            margin: auto;
+        }
+        #code{
+            width: 100px;
+            height: 100%;
+            background:#dfdfdf;
+            position:absolute;
+            left: 0px;
+            top: 0px;
+        }
+        #content{
+            width: 600px;
+            height: 100%;
+            background:chartreuse;
+            position:absolute;
+            left: 100px;
+            top: 0px;
+        }
         #box{
             width: 100px;
             height: 100px;
@@ -20,16 +45,23 @@
         var direction=true;
         
         function moveBox(){
-            direction =( x>=500)||(!direction)?false:true;
+            direction = ( x>=500)||(!direction)?false:true;
             direction = (x<=0)||(direction)?true:false;
-            x+=direction?100:-100;
+            x+=direction?10:-10;
             document.getElementById("box").style.left = x+"px";
         }
     </script>
 </head>
 <body>
-    <button onclick="moveBox()">움직이기</button>
-    <div id="box"></div>
+    <div id="wrapper">
+        <div id="code">
+            <button onclick="moveBox()">움직이기</button>
+        </div>
+        <div id="content">
+            <div id="box"></div>
+        </div>
+    </div>
+    
 
 </body>
 </html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+            // 브레이스라 하는 중괄호의 역할
+            //1) 범위를 설정한다 (지역화 시킴)
+            //2) 변수의 생명력을 제한한다.
+            /*
+                조건문 : if/if-elseif-else/switch
+            */
+            
+        var x = 3;//전역변수: 프로그래밍 종료될 때 소멸 : 즉 브라우저 끌 때
+        document.write("A");
+
+        if(false){
+            var a=7;//지역변수 : 브레이스 범위내에서만 생명력을 갖는다.
+            document.write("B");
+        }
+
+        document.write("C");
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* body태그에는 기본적으로 margin이 적용되어 있다....
+        따라서 body태그에 직접적으로 올려지는 태그는 약간 떨어져서 위치함... */
+        body{
+            margin:0px;/*잉여 공간을 아예 없애자!!*/
+        }
+        #wrapper{
+            width: 1024px;
+            height: 600px;
+            background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/fs/28ba5059824647.5a309e5d410de.jpg");
+            background-size:1024px 600px;
+            position: relative;/*자식때문에..*/
+            overflow: hidden;
+        }
+        img{
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            left: 0px;
+            top: 100px;
+            
+        }
+    </style>
+    <script>
+        function getPoint(){
+            // 마우스의 실시간 좌표를 텍스트박스에 출력해보자
+            //발생하는 이벤트에 대한 모든~정보는 event라는 객체가 보유하고 있다.
+            // 아까 예제에서는 키보드 이벤트에 대한 아스키코드값을 가져왔었다.
+            //이번엔, 키보드가 아니라 마우스에 관한 이벤트일뿐이다.
+            document.getElementById("tx").value=event.clientX;
+            document.getElementById("ty").value=event.clientY;
+            // 가운데로 오게 하기위해 15뺴기
+            document.getElementById("bird").style.left=(event.clientX-15)+"px";
+            document.getElementById("bird").style.top=(event.clientY-15)+"px";
+        }
+    </script>
+</head>
+<!-- onMouseMove : 마우스를 움직이는 동안 발생하는 이벤트를 처리하는 핸들러 -->
+<body onMouseMove="getPoint()">
+    <div id="wrapper">
+        마우스 x좌표 : <input id="tx" type="text" readonly>
+        마우스 y좌표 : <input id="ty" type="text" readonly>
+        <img id="bird" src="https://www.pngarts.com/files/5/Angry-Birds-Red-PNG-Transparent-Image.png" id="pic" onClick="alert('아야야!')">
+    </div>
+</body>
+</html>

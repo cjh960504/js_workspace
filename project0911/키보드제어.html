@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 1024px;
+            height: 600px;
+            margin:auto;
+            background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/fs/28ba5059824647.5a309e5d410de.jpg");
+            background-size:1024px 600px;
+            position: relative;/*자식요소에 postion이 명시되어 있기 때문에 
+            부모에도 반드시 포지션이 명시되어 있어야된다.*/
+            overflow: hidden;
+        }
+        #bird{
+            width: 100px;
+            height: 100px;
+            /* 앵그리버드 이미지를 wrapper라는 div를 기준으로 즉 부모로 위치를 설정하자!!
+                결국 wrapper에 대한 absolute로 처리하자!! */
+            position: absolute;
+            left:20px;
+            top:100px;
+        }
+    </style>
+    <script>
+        var x=20;
+        var y=100;
+        
+        function joystick(){
+            /*
+            먼저 움직이는게 우선이 아니다.
+            일단 사용자가 누른 키보드가 무엇인지부터 판단해야 한다.!!!!
+            컴퓨터는 오직 1,0 이진수로 표현되는 이라는 전기신호만 이해한다.
+            따라서, 우리가 컴퓨터 자판을 입력했을 때 각 자판의 철자마다 1:1 대응하는 십진수체계가
+            지원되고 있는 것이다..(왜 ANSI a를 96으로 했을까? 그건 ANSI만 안다.)
+            이 십진수가 내부적으로 컴퓨터에 전달될 때는 이진수로 변환되는 것이ㅏ..
+            그러나 겁먹지말자, 우린 인간이므로 그냥 프로그래밍에 집중하면 된다...
+            그리고 ASCII코드는 외우는 것이 아니라, 프로그래밍 언어를 통해 조사하면 된다..
+            참고로, 컴퓨터가 개발된 초창기에는 영미권에서만 컴퓨터를 사용했기 때문에
+            자판의 수가 특수문자까지 100여개 밖에 되지 않았기에 ASCII코드가 표현했던 코드의 
+            개수는 256개 밖에 안됨..
+            하지만, 모든 나라가 컴퓨터를 이용하므로 아스키코드를 더 확장하여 늘려놓았는데, 이 코드 체계 유니코드.. 앞으로 우리가 배울 
+            JAVA 언어는 한글뿐만 모든 언어를 지원하므로 유니코드 기반이다..
+            */ 
+        //    37, left/ 38,up/ 39,right/ 40,down
+           console.log("당신이 누른 키보드의 1:1 대응하는 아스키 코드 값은 ", event.keyCode);
+           
+           switch (event.keyCode) {
+               case 37:
+                   console.log("좌측이동", event.keyCode);
+                   moveLeft();
+                   break;
+                case 38:
+                    console.log("위로이동", event.keyCode);
+                    moveUp();
+                    break;
+                case 39:
+                    console.log("우측이동", event.keyCode);
+                    moveRight();
+                    break;    
+                case 40:
+                    console.log("아래로이동", event.keyCode);
+                    moveDown();
+                    break;    
+               default:
+                   break;
+           }
+        }
+
+        //우측으로 이동하는 함수 
+        function moveRight(){
+            // 문서내에 bird라는 요소의 css의 포지션 중 left, top을 변경한다.
+            x += 10;
+            document.getElementById("bird").style.left=x+"px";
+            console.log(x);
+
+        }
+        function moveLeft(){
+            x -= 10;
+            document.getElementById("bird").style.left=x+"px";
+            console.log(x);
+        }
+        function moveUp(){
+            y -= 10;
+            document.getElementById("bird").style.top=y+"px";
+            console.log(y);
+        }
+        function moveDown(){
+            y += 10;
+            document.getElementById("bird").style.top=y+"px";
+            console.log(y);
+        }    
+    </script>
+</head>
+<!-- onKeyDown : 키보드를 눌렀을 때 -->
+<body onKeyDown="joystick()">
+    <div id="wrapper">
+        <img id="bird"src="https://www.pngarts.com/files/5/Angry-Birds-Red-PNG-Transparent-Image.png" alt="">
+    </div>
+</body>
+</html>
