@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #wrapper{
+        width: 500px;
+        height: 500px;
+        background-color: turquoise;
+        margin: auto;
+        position: relative;
+    }
+    #box{
+        width: 50px;
+        height: 50px;
+        background-color: violet;
+        position: absolute;
+        left: 50px;
+        top: 80px;
+    }
+</style>
+<script>
+    var x=50,y=80,box;
+    var stepX=5, stepY=8;
+    function init(){
+        box=document.getElementById("box");
+    }
+    function move(){
+        //y축에 발이 닿았는지 여부 판단 (판단 기준 700 -50)
+        if(y>=450 || y<=0){
+            box.style.background="blue";
+            stepY= -stepY;
+        }
+        if(x>=450 || x<=0){
+            box.style.background="red";
+            stepX = -stepX;
+        }
+        x += stepX;
+        y += stepY;
+        box.innerText="x= "+x + ", y= "+y;
+        box.style.left=x+"px";
+        box.style.top=y+"px";
+    }
+    function auto(){
+        setInterval("move()", 10);
+    }
+</script>
+<body onload="init()">
+    <div id="wrapper">
+        <button onClick="move()">수동</button>
+        <button onClick="auto()">자동</button>
+        <div id="box"></div>
+    </div>
+</body>
+</html>
