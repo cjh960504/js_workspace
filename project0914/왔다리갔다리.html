@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left: 0px;
+            top: 150px;
+            color:yellow;
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+    <script>
+        var x=0;//box의 x좌표
+        var flag=false;
+        var box;
+        var step=10;
+
+        //init(사용자 초기화함수)은 body태그안의 모든 태그가 다 읽혀지고 나서 수행해야 굿! => onLoad()
+        function init(){
+            box =  document.getElementById("box");
+            //box변수 선언 시 초기값을 설정해준다면 에러가 난다.. why? 타이밍문제
+            //인터프리터방식이라 한줄한줄씩 실행되게 되는데 script문단이 먼저 실행되고 body가 다음으로 되기 때문에
+            //아직 메모리에 올려져있는 상태가 아니라서 그렇다!
+        }
+        function move(){
+            //방법1) 500이상이거나 0이하면 방향을 바꿔야함
+            //  flag = (x>=500)||(x<=0)?!flag:flag;
+            // x+=flag?10:-10;
+            
+            //방법2) 500이상이거나 0이하면 부호를 바꿔야함
+            x+=step;
+            step = (x>=500)||(x<=0)?-step:step;
+           
+            box.style.left=x+"px";
+            box.innerText = x;
+        }
+
+        function auto(){
+            setInterval("move()", 10);
+        }
+    </script>
+</head>
+<body onLoad="init()">
+    <button onClick="move()">수동 움직이기</button>
+    <button onClick="auto()">자동 움직이기</button>
+    <div id="box"></div>
+</body>
+</html>
