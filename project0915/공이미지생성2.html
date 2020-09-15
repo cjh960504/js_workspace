@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var count = 0; //전역변수, 숫자가 누적될 수 있도록 하기 위함.
+
+        function createBall(){
+            var choice = document.getElementById("choice").value;
+            choice = parseInt(choice); //주의) parseInt() 대상이 될 수 있는 건 "쌍따옴표"를 벗겻을때, 정수가 될수 있는 문자만..
+            var ballImg = document.getElementById("ballImg").value;
+            ballImg = parseInt(ballImg);
+            var defaultImg = document.getElementById("defaultImg").value;
+            defaultImg=parseInt(defaultImg);
+            // "1"(o), "23"(o),"aa"(x)
+            count++;
+            var ball = document.createElement("img"); //img태그 생성
+          
+            if(count%choice == 0){
+                ball.src="../images/ball/ball"+ballImg+".png"; //src속성 적용
+            }else{  
+                ball.src="../images/ball/ball"+defaultImg+".png";
+            }
+            
+            // ball.src = count%choice?"../images/ball/ball1.png":"../images/ball/ball2.png";
+            ball.style.width=50+"px";
+            document.body.appendChild(ball);//body에 ball추가!
+        }
+
+        function auto(){
+            setInterval("createBall()", 1000);
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <input id="choice" type="text" placeholder="몇번째마다 공을 생성할지 숫자입력..">
+        <label for="defaultImg">기본공선택</label>
+        <select name="" id="defaultImg">
+            <option value="1">축구공</option>
+            <option value="2">비치볼</option>
+            <option value="3">농구공</option>
+        </select>
+        <label for="ballImg">n번째마다 올 공</label>
+        <select name="" id="ballImg">
+            <option value="1">축구공</option>
+            <option value="2">비치볼</option>
+            <option value="3">농구공</option>
+        </select>
+        <button id="bt" onClick="createBall()">공 생성</button>
+        <button onClick="auto()">자동생성</button>
+    </div>
+</body>
+</html>

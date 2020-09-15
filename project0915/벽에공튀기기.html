@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var wrapper;
+        var move, auto;
+        var ball;
+        var x=0;//ball의 좌표값
+        var y=0;//ball의 좌표값
+        var speedX = 5;
+        var speedY = 4;
+
+        function init(){
+            //div태그 추가
+            document.body.style.margin=0+"px";
+            wrapper=document.createElement("div");  
+            wrapper.style.width=600+"px";
+            wrapper.style.height=600+"px";
+            wrapper.style.background="red";
+            wrapper.style.margin="auto";
+            wrapper.style.position="relative";//자식땜시
+            document.body.appendChild(wrapper);
+
+            //공 추가하기
+            ball = document.createElement("img");
+            ball.src="../images/ball/ball1.png";
+            ball.style.width=50+"px";
+            ball.style.height=50+"px";
+            ball.style.position="absolute";
+            ball.style.left=100+"px";
+            ball.style.top=50+"px";
+            
+            x=parseInt(ball.style.left);
+            y=parseInt(ball.style.top);
+            wrapper.appendChild(ball);
+            createButton();
+        }
+
+        function createButton(){
+            //동적으로 버튼으로 생성하고, click이벤트마저도 프로그래밍적으로 처리해보자!
+            //버튼 추가
+            move = document.createElement("button");
+            move.innerText="수동조작";
+            move.style.margin=5+"px"; 
+            //버튼에 click이벤트 추가하기
+            move.addEventListener("click", function(){
+                //이름없는 함수를 익명함수라 하고, 이 영역에 코드를 작성하면  
+                // 해당 이벤트가 발생했을때, 이 코드가 동작하게 된다...
+                moving();
+            }); // 이벤트 감지자 등록!!!
+            
+            auto = document.createElement("button");
+            auto.innerText="자동조작";
+            auto.style.margin=5+"px";
+            auto.addEventListener("click",function(){
+                auto_();
+            })
+            
+
+            wrapper.appendChild(move);
+            wrapper.appendChild(auto);
+        }
+
+        function moving(){
+            
+            //증감처리
+            x += speedX;
+            y += speedY;
+
+            //공의 좌표를 변경
+            ball.style.left = x+"px";
+            ball.style.top = y+"px";
+
+            //공이 우측 벽에 도달하면, 우측벽의 닿는 순간의 x좌표= 우측벽의 x좌표 - 공의 너비 
+            if(x>=(parseInt(wrapper.style.width)-parseInt(ball.style.width)) || x<=0){
+                speedX = -speedX;
+            }
+            //공이 바닥 벽을 도달하면, 바닥벽의 닿는 순간의 y좌표 = 바닥벽의 y좌표 - 공의 높이
+            if(y>=(parseInt(wrapper.style.height)-parseInt(ball.style.height)) || y<=0){
+                speedY = -speedY;
+            }
+        }
+
+        function auto_(){
+            setInterval("moving()",10);
+        }
+        
+    </script>
+</head>
+<body onLoad="init()">
+    <!-- 이 예제에서는 body에 직접 태그를 작성하지 말자!!
+    순수 자바스크립트로만, 디자인까지 작성해보자! (실력향상) -->
+</body>
+</html>

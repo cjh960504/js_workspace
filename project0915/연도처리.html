@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var year;
+        function createYear(){
+            //option태그 동적으로 추가
+            year = document.getElementById("year");
+            for(var i=2020;i>=1930;i--){
+                var years = document.createElement("option");
+                years.text=i; //<option>i값</option>
+                years.value=i;
+                console.log(years.value);
+                year.add(years);//select박스에 option 요소 추가
+            }
+        }
+    </script>
+</head>
+<body onload="createYear()">
+
+    <label for="year">출생년도</label>
+    <select name="" id="year"></select>
+
+    <label for="month">출생월</label>
+    <select name="" id="month">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+    </select>
+</body>
+</html>

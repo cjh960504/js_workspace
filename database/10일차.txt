@@ -1,0 +1,362 @@
+SQL> --join : 물리적으로 분리된 테이블을 마치 하나의 테이블처럼 논리적으로 묶어서 가져올 수 있는 select문
+SQL> --왜 나누어 졌을까? 하나의 테이블에 데이터를 몰아넣으면 편하다...
+SQL> --데이터가 여기저기 산재되어 있어, 정제화되어 있지 않기 때문에 올바르지 않은 데이터가 시간이 지날수록 누적됨..
+SQL> --즉 중복을 방지하기 위해서는, 분리시킨다 (정규화)
+SQL> -- 수업주제 : 외래키 (foreign key)
+SQL> --상푸무 범주 테이블 생성
+SQL> create table category(
+  2  category_id number primary key,
+  3  name varchar(20),
+  4  );
+)
+*
+ERROR at line 4:
+ORA-00904: : invalid identifier 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create table category(
+  2  category_id number primary key,
+  3  name varchar(20)
+  4* )
+SQL> /
+
+Table created.
+
+SQL> desc category;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CATEGORY_ID                               NOT NULL NUMBER
+ NAME                                               VARCHAR2(20)
+
+SQL> insert into category(category_id, name) values(1, '상의');
+
+1 row created.
+
+SQL> insert into category(category_id, name) values(2, '하의');
+
+1 row created.
+
+SQL> insert into category(category_id, name) values(3, '액세서리');
+
+1 row created.
+
+SQL> insert into category(category_id, name) values(4, '신발');
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from category;
+
+CATEGORY_ID NAME                                                                
+----------- ----------------------------------------                            
+          1 상의                                                                
+          2 하의                                                                
+          3 액세서리                                                            
+          4 신발                                                                
+
+SQL> --방금 만든 카테고리 테이블을 참조하는 자식 테이블을 생성한다.
+SQL> create table product(
+  2  product_id number primary key,
+  3  category_id number foreign key references category(category_id),
+  4  code varchar(20),
+  5  product_name varchar(20),
+  6  price number default 0
+  7  );
+category_id number foreign key references category(category_id),
+                   *
+ERROR at line 3:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create table product(
+  2  product_id number primary key,
+  3  category_id number foreign key reference category(category_id),
+  4  code varchar(20),
+  5  product_name varchar(20),
+  6  price number default 0
+  7* )
+SQL> /
+category_id number foreign key reference category(category_id),
+                   *
+ERROR at line 3:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create table product(
+  2  product_id number primary key,
+  3  category_id number,
+  4  foreign key (category_id) references category(category_id),
+  5  code varchar(20),
+  6  product_name varchar(20),
+  7  price number default 0
+  8* )
+SQL> /
+
+Table created.
+
+SQL> desc product;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODUCT_ID                                NOT NULL NUMBER
+ CATEGORY_ID                                        NUMBER
+ CODE                                               VARCHAR2(20)
+ PRODUCT_NAME                                       VARCHAR2(20)
+ PRICE                                              NUMBER
+
+SQL> insert into product product(product_id, category_id, code, product_name, price)
+  2  values(1,1,'JE5505','Metro청바지',250000);
+
+1 row created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into product product(product_id, category_id, code, product_name, price)
+  2* values(1,1,'JE5505','Metro청바지',250000)
+SQL> ;
+  1  insert into product product(product_id, category_id, code, product_name, price)
+  2* values(1,1,'JE5505','Metro청바지',250000)
+SQL> /
+insert into product product(product_id, category_id, code, product_name, price)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (USER0907.SYS_C007113) violated 
+
+
+SQL> insert into product product(product_id, category_id, code, product_name, price)
+  2  values(2,1,'JE5506','스키니청바지',270000);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from product;
+
+PRODUCT_ID CATEGORY_ID CODE                                                     
+---------- ----------- ----------------------------------------                 
+PRODUCT_NAME                                  PRICE                             
+---------------------------------------- ----------                             
+         1           1 JE5505                                                   
+Metro청바지                                  250000                             
+                                                                                
+         2           1 JE5506                                                   
+스키니청바지                                 270000                             
+                                                                                
+
+SQL> set line 200
+SQL> set pagesize 20
+SQL> select * from product;
+
+PRODUCT_ID CATEGORY_ID CODE                                     PRODUCT_NAME                                  PRICE                                                                                     
+---------- ----------- ---------------------------------------- ---------------------------------------- ----------                                                                                     
+         1           1 JE5505                                   Metro청바지                                  250000                                                                                     
+         2           1 JE5506                                   스키니청바지                                 270000                                                                                     
+
+SQL> -- foreign key 제약조건을 자식테이블에 부여할 경우, 부모는 함부로 데이터를 조작하지 못한다..
+SQL> -- 실습
+SQL> update category set category_id=100;
+update category set category_id=100
+*
+ERROR at line 1:
+ORA-00001: unique constraint (USER0907.SYS_C007112) violated 
+
+
+SQL> alter table category drop column catergory_id;
+alter table category drop column catergory_id
+                                 *
+ERROR at line 1:
+ORA-00904: "CATERGORY_ID": invalid identifier 
+
+
+SQL> alter table category drop column category_id;
+alter table category drop column category_id
+                                 *
+ERROR at line 1:
+ORA-12992: cannot drop parent key column 
+
+
+SQL> -- 왜래키 제약조건을 걸어놓으면, 데이터 무결성을 유지하며 안전장치를 마련한다.
+SQL> -- 1.unique
+SQL> --2.not null
+SQL> --3. primary key
+SQL> --4. check
+SQL> --5. default
+SQL> --6. foriegn key
+SQL> --primary key를 사람이 직접 넣으면 안됨.. 왜? 중복가능성도 있고, 수치값이 몇까지 증가했는지 조차알수없다.
+SQL> -- 사용자들에 의해 증가되므로 예측불가
+SQL> -- 해결책) sequence를 이용해보자
+SQL> create sequence seq_category
+  2  increment by 1 --1씩 증가시켜라
+  3  start with 1 -- 1부터 시작해라
+  4  ;
+create sequence seq_category
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> ㄷㅇ
+SP2-0042: unknown command "ㄷㅇ" - rest of line ignored.
+SQL> ㄷㅇ
+SP2-0042: unknown command "ㄷㅇ" - rest of line ignored.
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create sequence seq_category
+  2  increment by 1
+  3* start with 1
+SQL> /
+create sequence seq_category
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> --현재로서는 권한이 없다..
+SQL> conn system/1234
+Connected.
+SQL> grant create sequence to user0907;
+
+Grant succeeded.
+
+SQL> conn user0907/1234;
+Connected.
+SQL> create sequence seq_category
+  2  increment by 1
+  3  start with 1;
+
+Sequence created.
+
+SQL> -- 숫자값만을 전담하여 증가시켜주는 객체인 시퀀스를 생성
+SQL> -- increment by ? => 몇씩 증가시켜줄것이냐
+SQL> -- start with ? => 몇부터 시작할 것이냐
+SQL> -- 시퀀스를 호출하여, insert 해보기
+SQL> -- 기존에 들어간 category 데이터는 시퀀스를 이용하지 않았기 때문에 무결성이 꺠진데이터이다..
+SQL> --따라서 버리자
+SQL> delete from category;
+delete from category
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (USER0907.SYS_C007114) violated - child record found 
+
+
+SQL> --제약조건을 걸어놓아서, 마음대로 category 데이터를 ;;;
+SQL> create sequence seq_product
+  2  increment by 1
+  3  start with 1
+  4  ;
+
+Sequence created.
+
+SQL> --기존의 productdml category_id값을 지우자 ㅁ
+SQL> delete from product;
+
+2 rows deleted.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> --시퀀스를 이용한 데이터 insert
+SQL> insert into product (product_id, category_id, code, product_name, price) values (seq_product.nextval, 1,'JE0007','일자청바지',30000);
+
+1 row created.
+
+SQL> /
+
+1 row created.
+
+SQL> /
+
+1 row created.
+
+SQL> /
+
+1 row created.
+
+SQL> /
+
+1 row created.
+
+SQL> /
+
+1 row created.
+
+SQL> /
+
+1 row created.
+
+SQL> /
+
+1 row created.
+
+SQL> 
+SQL> /
+
+1 row created.
+
+SQL> //
+
+1 row created.
+
+SQL> /
+
+1 row created.
+
+SQL> //
+
+1 row created.
+
+SQL> /
+
+1 row created.
+
+SQL> /
+
+1 row created.
+
+SQL> /
+
+1 row created.
+
+SQL> select * from product;
+
+PRODUCT_ID CATEGORY_ID CODE                                     PRODUCT_NAME                                  PRICE                                                                                     
+---------- ----------- ---------------------------------------- ---------------------------------------- ----------                                                                                     
+         1           1 JE0007                                   일자청바지                                    30000                                                                                     
+         2           1 JE0007                                   일자청바지                                    30000                                                                                     
+         3           1 JE0007                                   일자청바지                                    30000                                                                                     
+         4           1 JE0007                                   일자청바지                                    30000                                                                                     
+         5           1 JE0007                                   일자청바지                                    30000                                                                                     
+         6           1 JE0007                                   일자청바지                                    30000                                                                                     
+         7           1 JE0007                                   일자청바지                                    30000                                                                                     
+         8           1 JE0007                                   일자청바지                                    30000                                                                                     
+         9           1 JE0007                                   일자청바지                                    30000                                                                                     
+        10           1 JE0007                                   일자청바지                                    30000                                                                                     
+        11           1 JE0007                                   일자청바지                                    30000                                                                                     
+        12           1 JE0007                                   일자청바지                                    30000                                                                                     
+        13           1 JE0007                                   일자청바지                                    30000                                                                                     
+        14           1 JE0007                                   일자청바지                                    30000                                                                                     
+        15           1 JE0007                                   일자청바지                                    30000                                                                                     
+
+15 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;

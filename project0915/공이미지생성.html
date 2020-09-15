@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var select = prompt("몇번째마다 공을 바꿀래?");
+        var count = 0; //전역변수, 숫자가 누적될 수 있도록 하기 위함.
+        select = parseInt(select);
+
+        function createBall(){
+            count++;
+            var ball = document.createElement("img"); //img태그 생성
+            // if(count%select == 0){
+            //     ball.src="../images/ball/ball1.png"; //src속성 적용
+            // }else{  
+            //     ball.src="../images/ball/ball2.png";
+            // }
+            
+            ball.src = count%select?"../images/ball/ball1.png":"../images/ball/ball2.png";
+            ball.style.width=50+"px";
+            document.body.appendChild(ball);//body에 ball추가!
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <button id="bt" onClick="createBall()">공 생성</button>
+    </div>
+</body>
+</html>
