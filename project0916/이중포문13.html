@@ -1,0 +1,24 @@
+<script>
+    /*
+        반복문에서 중요한 것은 반복 횟수임을 잊지말자!!
+        나머지는 규칙에 의해 알아서 돌아가므로, 개발자는 무엇이 변하는지만 알면됨
+
+        8개짜리 데이터가 총 9회 반복
+        호:8 td 안쪽포문
+        층:9 th 바깥포문
+    */ 
+    for(var i=1;i<=9;i++){
+        for(var j=2;j<=9;j++){
+            document.write(j+"*1="+j*1+"\t");
+        }
+        document.write("<br>");
+    }
+    document.write("<br>");
+    document.write("<br>");
+    for(var i=1;i<=9;i++){
+        for(var j=2;j<=9;j++){
+            document.write(j+"*"+i+"="+j*i+"\t");
+        }
+        document.write("<br>");
+    }
+</script>

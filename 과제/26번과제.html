@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var year, btCal;
+        
+        function init(){
+            year = document.createElement("input");
+            year.placeholder="원하는 연도 입력";
+            btCal = document.createElement("button");
+            btCal.innerText="출력";
+            btCal.addEventListener("click",function(){
+            cal();
+            });
+            document.body.appendChild(year);
+            document.body.appendChild(btCal);
+        }
+
+        function cal(){
+            console.log(max);
+            if(parseInt(year.value)%4==0){
+                document.write("29일까지");
+            }else{
+                document.write("28일까지");
+            }
+        }
+        
+
+        
+    </script>
+</head>
+<body onload="init()">
+    
+</body>
+</html>

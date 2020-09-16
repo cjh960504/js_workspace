@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrapper{
+            width: 700px;
+            height: 600px;
+            background:yellow;
+            margin:auto;
+            position: relative;
+            border: 2px solid red;
+        }
+        .regist-area{
+            width: 200px;
+            height: 100%;
+            background: violet;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+        #result-area{
+            width: 500px;
+            height: 100%;
+            position: absolute;
+            left: 200px;
+            top: 0px;
+        }
+        input[type='text'],input[type='password']{
+            padding:6px;
+            margin: 5px 5px;
+        }
+        button{
+            margin: 0px 5px 0px 5px;
+            width: 70px;
+            padding:6px;
+        }
+    </style>
+    <script>
+        var count=0; //누른 횟수를 점점 증가시키기 위한 전역변수
+
+        function regist(){
+            count+=1;
+            //regist-area div에 등록된 사람에 대한 정보 table을 출력한다.
+            //document.write(); body에 쓰여지는 것
+            var area=document.getElementById("result-area");
+            /*
+                document.write()와는 다르게, innerText는 두가지 문제가 있다..
+                1) <>를 넣어도 태그로 인식하지 않고 그냥 문자로 간주..
+                2) 마지막에 수행된 innerText가, 이전 innerText를 대체해버린다.
+                    즉, 누적이 되지 않는다!!
+            */ 
+            /*
+            매번 innerText를 작성하면 코드가 너무, 중복이 많고 코드량이 많다.
+            area.innerText = "<table>";
+            area.innerText = area.innerText + "</table>";
+            */
+            
+            // escape시킨 특수문자는 일반문자화되므로,
+            // 결국 \" 라는 두개의 특수문자가 모여서 한개의 따옴표(")를 표현하는거임
+            var str="<table border=\"1px\" width=\"100%\">"; // 변수에 문자열 담기
+            str = str + "<tr>";//천장
+            str = str + "<th>ID</th>";
+            str = str + "<th>Password</th>";
+            str = str + "<th>Name</th>";
+            str = str + "</tr>";//바닥
+
+            //자바스크립트에서 문서내의 요소를 접근하는 방법은 무지무지많다.
+            // 개발자는 여러 방법 중 원하는 방법을 선택하면 되는데,
+            // 1) id나 name을 부여한 후 가져오는 방법
+            // - document.getElementById() or document.getElementByName()
+            // 2) css의 선택자
+            // - document.querySelector("css의 선택자 모두 표현가능함")
+
+            //테이블 출력 전에, 사용자가 입력한 데이터를 가져와보자.
+            //문서내에 id라는 이름을 가진 요소 접근
+            // var id = document.querySelector("input[name='id']");
+            // var pw = document.querySelector("input[name='pw']");
+            // var name = document.querySelector("input[name='name']");
+
+            //텍스트박스의 값을 얻어올때는 value로 접근하는 것임
+
+            //누적될 데이터를 표현할 tr세트
+            for(var i=1;i<=count;i++){
+                str = str + "<tr>";
+                str = str + "<td>"+id.value+"</td>";//텍스트박스의 id 입력값
+                str = str + "<td>"+pw.value+"</td>";//텍스트박스의 pw 입력값
+                str = str + "<td>"+name.value+"</td>";//텍스트박스의 name 입력값
+                str = str + "</tr>";
+            }
+            str=str+"</table>";//기존 str에 문자열 누적
+            area.innerHTML = str; //문자열내게 <꺽쇠>가 있따면, 태그로 해석가능함!
+        }
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="regist-area">
+            <form onsubmit="event.preventDefault()">
+                <!-- 버튼에 의한 무조건적인 전송방지 
+                    방지안하게되면, 새로고침때문에 페이지가 갱신
+                 -->
+                <input type="text" name="id" placeholder="ID 입력..."/>
+                <input type="password" name="pw" placeholder="Passwrod 입력..."/>
+                <input type="text" name="name" placeholder="Name 입력..."/>    
+                <button onClick="regist()">등록</button>
+                <button onClick="">지우기</button>
+            </form>
+        </div>
+        <div id="result-area"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var num, shape, btCal;
+        
+        function init(){
+            num = document.createElement("input");
+            num.placeholder="원하는 수 입력";
+            btCal = document.createElement("button");
+            btCal.innerText="출력";
+            btCal.addEventListener("click",function(){
+            cal();
+            });
+            document.body.appendChild(num);
+            document.body.appendChild(btCal);
+        }
+
+        function cal(){
+            var l = parseInt(num.value);
+           for(var i=1;i<=l*l;i++){
+                document.write("★");
+                if(i%l==0){
+                    document.write("<br>");
+                }
+           }
+        }
+        
+
+        
+    </script>
+</head>
+<body onload="init()">
+    
+</body>
+</html>
