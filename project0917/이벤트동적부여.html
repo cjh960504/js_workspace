@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 이벤트 핸들러로 처리
+        // window = header + body = 창 전체 
+        // 바깥쪽에 최고라 생략가능 (window).addEventListener();
+        var bt;
+           addEventListener("load", function(){
+                bt = document.createElement("button"); //없었던 요소를 생성하는 것은 createElement()
+                bt.innerText="클릭해바";
+                bt.addEventListener("click", function(){
+                    alert("나 눌렀어?");
+                })
+                document.body.appendChild(bt);  
+           });
+       
+    </script>
+</head>
+<body>
+    <!-- 문서가 로드되면, 버튼을 등장시키고 그 버튼을 누르면 나 눌렀어? 라는 메시지 alert()으로 출력되게..하되
+    오직 자바스크립트로만 처리... -->
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrapper{
+            width: 700px;
+            height: 400px;
+            position: relative;
+            border: 5px solid black;
+        }
+        #box{
+            width: 150px;
+            height: 100%;
+            background: white;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            overflow: scroll;
+        }
+        #content{
+            width: 550px;
+            height: 100%;
+            position: absolute;
+            left: 150px;
+            top:0px;
+        }
+        #box img{
+            width:130px;
+            height: 100px;
+        }
+        #content img{
+            width: 450px;
+            padding:30px;
+        }
+    </style>
+    <script>
+        function setPic(pic){
+            var cont=document.querySelector("#content img");
+            cont.src="../images/travel/"+pic+".jpg";        
+        }
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="box">
+            <img onclick="setPic(1)" src="../images/travel/1.jpg" alt=""/>
+            <img onclick="setPic(2)" src="../images/travel/2.jpg" alt=""/>
+            <img onclick="setPic(3)" src="../images/travel/3.jpg" alt=""/>
+            <img onclick="setPic(4)" src="../images/travel/4.jpg" alt=""/>
+            <img onclick="setPic(5)" src="../images/travel/5.jpg" alt=""/>
+            <img onclick="setPic(6)"src="../images/travel/6.jpg" alt=""/>
+            <img onclick="setPic(7)"src="../images/travel/7.jpg" alt=""/>
+            <img onclick="setPic(8)"src="../images/travel/8.jpg" alt=""/>
+            <img onclick="setPic(9)" src="../images/travel/9.jpg" alt=""/>
+            <img onclick="setPic(10)" src="../images/travel/10.jpg" alt=""/>
+        </div>
+        <div id="content">
+            <img src="" alt="">
+        </div>
+    </div>
+</body>
+</html>

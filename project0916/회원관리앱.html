@@ -57,7 +57,7 @@
             area.innerText = "<table>";
             area.innerText = area.innerText + "</table>";
             */
-            
+
             // escape시킨 특수문자는 일반문자화되므로,
             // 결국 \" 라는 두개의 특수문자가 모여서 한개의 따옴표(")를 표현하는거임
             var str="<table border=\"1px\" width=\"100%\">"; // 변수에 문자열 담기
@@ -76,9 +76,9 @@
 
             //테이블 출력 전에, 사용자가 입력한 데이터를 가져와보자.
             //문서내에 id라는 이름을 가진 요소 접근
-            // var id = document.querySelector("input[name='id']");
-            // var pw = document.querySelector("input[name='pw']");
-            // var name = document.querySelector("input[name='name']");
+            var id = document.querySelector("input[name='id']");
+            var pw = document.querySelector("input[name='pw']");
+            var name = document.querySelector("input[name='name']");
 
             //텍스트박스의 값을 얻어올때는 value로 접근하는 것임
 
@@ -93,6 +93,10 @@
             str=str+"</table>";//기존 str에 문자열 누적
             area.innerHTML = str; //문자열내게 <꺽쇠>가 있따면, 태그로 해석가능함!
         }
+        function remove(){
+            document.getElementById("result-area").innerText="";
+        }
+
     </script>
 </head>
 <body>
@@ -106,7 +110,7 @@
                 <input type="password" name="pw" placeholder="Passwrod 입력..."/>
                 <input type="text" name="name" placeholder="Name 입력..."/>    
                 <button onClick="regist()">등록</button>
-                <button onClick="">지우기</button>
+                <button onClick="remove()">지우기</button>
             </form>
         </div>
         <div id="result-area"></div>
