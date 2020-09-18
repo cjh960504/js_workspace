@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 100%;
+            height: 600px;
+            background:royalblue;
+        }
+        #ball{
+            width:30px;
+            height:30px;
+            background: red;
+            border-radius: 50px;
+        }
+    </style>
+    <script src="../js/lib.js"></script>
+    <script>
+        var wrapper, ball;
+        var ballX, ballY;
+        var targetX, targetY;
+        let a=0.1;
+        var flag=false;
+
+        function init(){
+            wrapper = document.getElementById("wrapper");
+            ball = document.getElementById("ball");
+            ballX = document.getElementById("ballX");
+            ballY = document.getElementById("ballY");
+            btMove = document.getElementById("btMove");
+            wrapper.style.position="relative";
+            ball.style.position="absolute";
+            ball.style.left=100+"px";
+            ball.style.top=100+"px";    
+        }
+
+        function setXY(){
+            targetX = parseInt(ballX.value);
+            targetY = parseInt(ballY.value);
+        }
+
+        function move(){
+            if(flag){
+                setXY();
+                ball.style.left = parseInt(ball.style.left) + a*(targetX-parseInt(ball.style.left))+"px";
+                ball.style.top = parseInt(ball.style.top) + a*(targetY-parseInt(ball.style.top))+"px";
+            }
+        }
+
+        function auto(){
+            setInterval("move()", 10);
+        }
+        function setFlag(){
+            flag = !flag;
+            if(flag){
+                btMove.innerText="중지";
+            }else{
+                btMove.innerText="실행";
+            }
+        }
+    </script>
+</head>
+<body onLoad="init(); auto()">
+    <div id="wrapper">
+        <input type="text" id="ballX" placeholder="이동할 x좌표를 입력..">x좌표
+        <input type="text" id="ballY" placeholder="이동할 y좌표를 입력..">y좌표
+        <button id="btMove"onClick="setFlag()">실행</button>
+        <div id="ball"></div>
+    </div>
+</body>
+</html>

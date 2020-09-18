@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 512px;
+            height: 336px;
+            margin:auto;
+            position: relative;
+        }
+        .wrapper img{
+            width: 512px;
+            height: 336px;
+        }
+    </style>
+    <script src="../js/lib.js"></script>
+    <script>
+        var wrapper;
+        var bg;
+        var sx = 1; //이미지 x스케일을 결정하는 전역변수
+        var sy = 1; //이미지 y스케일을 결정하는 전역변수
+        var light;
+        let a=0.1; //로직내에서 변경사항 없음 :상수
+        var targetX=0; //반딧불이 도달할 x목표지점
+        var targetY=0; //반딧불이 도달할 y목표지점
+        var count=0;
+        window.addEventListener("load", function(){
+            wrapper = document.getElementById("wrapper");
+            bg  = document.getElementById("bg");
+            setInterval("moveBg()", 10);
+            setInterval("move()",10);
+            createLight(); //반딧불 생성
+        });
+
+        function moveBg(){
+            //스케일을 키워보자!!
+            // 스케일은 비율로 커지므로, 정수를 이용하면 너무 빨리 커진다..
+            // 따라서 소수점으로 키워나가보자!
+            sx+=0.0002;
+            sy+=0.0002;
+
+            bg.style.transform="scale("+sx+","+sy+")";
+            
+        }
+        // 반딧불의 감속도 운동
+        function move(){
+            if((count++)%300==0){ //count가 400마다
+                //400마다 고정되어있으면 최소에 한번만 움직이므로..
+                // 400마다 랜덤한 값으로 대체하자!!
+                // 새롭게 로직을 작성하지말고, 예전에 개발해놓아던 코드를 사용하자
+                // getRandom()을 재사용하자!!! -> 개발시간단축, 비용줄임 -> 기업 돈번다
+                targetX = getRandom(500); //0~600
+                targetY = getRandom(300); //0~400
+            }
+
+            // 반디위치는 = 현재반디위치 + 비율계수*거리(목표지점-현재반디위치)
+            light.style.left=parseInt(light.style.left)+a*(targetX-parseInt(light.style.left))+"px";
+            light.style.top=parseInt(light.style.top)+a*(targetY-parseInt(light.style.top))+"px";
+            // console.log("x목표지점", targetX);
+            // console.log("y목표지점", targetY);
+            // console.log(count++);
+        }
+        //반딧불을 생성한다. 
+        function createLight(){
+            //없는 것을 생성함으로,
+            light=document.createElement("div");
+            light.style.width=30+"px";
+            light.style.height=30+"px";
+            //위치를 absolute로 해야, div내에서 좌표가 지정되고, img태그와 
+            // 자리싸움을 벌이지 않는다.
+            light.style.position="absolute";
+            light.style.left=100+"px";
+            light.style.top=150+"px";
+            light.style.background="red";
+
+            light.style.borderRadius=50+"px";
+            light.style.opacity=0.6;
+            wrapper.appendChild(light);
+        }
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <img id="bg" src="../../images/bd/bg.jpg" alt="">
+    </div>
+</body>
+</html>
