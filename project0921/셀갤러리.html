@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin:0px
+        }
+        .wrapper{
+            width:600px;
+            height:600px;
+            margin: auto;
+            background: yellow;
+        }
+        #mask{
+            width: 200px;
+            height: 200px;
+            background: red;
+            /* 본연의 위치에서 left 200 top 200 으로 설정, 이유: 정중앙으로 오게 하려고 */
+            position: relative;
+            left: 200px;
+            top: 200px;
+            overflow: hidden; 
+        }
+        #cell{
+            width: 600px;
+            height: 600px;
+            background: blue;
+            /* position: absolute;
+            left:0px;
+            top:0px;  동적으로 하기 위해 스크립트안에서 지정해야함!!!!*/
+        }
+    </style>
+    <script>
+        var cell;
+        var x=0, y=0; //cell의 x좌표, y좌표
+        var targetX=0, targetY=0;//목표지점
+        let a=0.1;
+        var pic=1;
+        window.addEventListener("load", function(){
+            init();
+            setInterval("move()",25);
+        });
+        function init(){
+            cell = document.getElementById("cell");
+            cell.style.position="absolute";
+            cell.style.left=x+"px";
+            cell.style.top=y+"px";
+            
+            //생성된 셀에 이미지 9개 채우기
+            for(var j=1;j<=3;j++){ //층을 결정, top값을 결정
+                for(var i=1;i<=3;i++){ //호수를 결정, left값을 결정
+                    var img = document.createElement("img");
+                    img.src="../../images/travel/"+pic+".jpg";
+                    img.style.width=200+"px";
+                    img.style.height=200+"px";
+                    img.style.position="absolute";
+                    img.style.left=200*(i-1)+"px";
+                    img.style.top=200*(j-1)+"px";
+                    cell.appendChild(img);
+                    pic++;
+                }
+            }
+            //문서 전체를 대상으로 키보드 이벤트 구현
+            document.body.addEventListener("keydown", function(){
+                // 모든 키보드에 반응하면 안되고, 오직 방향키에만 반응하도록 조건문을 부여하자!!
+                var key = event.keyCode; //키보드에 대한 이벤트 정보 객체로부터 아스키코드 반환받음
+
+                switch(key){
+                    case 37: targetX+=200; break; //좌
+                    case 39: targetX-=200; break; //우
+                    
+                    case 38: targetY+=200; break; //위
+                    case 40: targetY-=200; break; //아래
+                }
+                //셀div의 좌표를 설정해서 움직이도록 한다..
+                // setTarget();
+                // targetX=x;
+                // targetY=y;
+            });
+        }
+
+        function setTarget(){
+            cell.style.left=x+"px";
+            cell.style.top=y+"px";
+            printPos();
+        }
+        //목표지점까지 부드럽게 움직일 수 있도록, 감속도로 처리..
+        function move(){
+            cell.style.left=parseFloat(cell.style.left)+a*(targetX-parseFloat(cell.style.left))+"px";
+            cell.style.top=parseFloat(cell.style.top)+a*(targetY-parseFloat(cell.style.top))+"px";
+        }
+        //디버깅을 위한, 좌표 출력(필수는 아님.. 공부목적)
+        function printPos(){
+            cell.style.color="white";
+            cell.innerText="x좌표"+cell.style.left+"\n";
+            cell.innerText+="y좌표"+cell.style.top;
+            
+        }
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="mask">
+            <div id="cell">이미지 셀</div>
+        </div>
+    </div>
+</body>
+</html>

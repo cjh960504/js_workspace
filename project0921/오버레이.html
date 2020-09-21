@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #photo{
+        width: 500px;
+        height: 400px;
+        background-image: url(../../images/travel/5.jpg);
+        background-size: 500px 400px;
+        margin: auto;
+    }
+    #layer{
+        width: 100%;
+        height: 100%;
+        background-color: black;
+    }
+</style>
+<script>
+    var layer;
+    let a=0.1;
+    var targetO=1; //처음에는 불투명상태로 대기.. 마우스 올려놓으면 그때 투명도 값을 결정짓자~!
+
+    function init(){
+        layer = document.getElementById("layer");
+        layer.style.opacity=1;
+        layer.addEventListener("mouseover", function(){
+            // setOpacity();
+            targetO=0;
+            
+        });
+    }
+    
+    function setOpacity(){
+        layer.style.opacity=parseFloat(layer.style.opacity)+a*(targetO-parseFloat(layer.style.opacity));
+        console.log(layer.style.opacity);
+    }
+    window.addEventListener("load", function(){
+        init();
+        setInterval("setOpacity()",20);
+    });
+</script>
+</head>
+<body>
+    <div id="photo">
+        <div id="layer"></div>
+    </div>
+</body>
+</html>

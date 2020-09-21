@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 600px;
+            height: 500px;
+            background: yellow;
+            margin: auto;
+        }
+        #tab{
+            width: 100%;
+            height: 50px;
+            background: yellowgreen;
+        }
+        #box1, #box2, #box3{
+            width: 100%;
+            height: 450px;
+        }
+        #box1{
+            background-color: blue;
+           
+        }
+        #box2{
+            background-color: red;
+            display: none;
+        }
+        #box3{
+            background-color: darkkhaki;
+            display: none;
+        }
+        #tab a{
+            text-decoration: none;
+            display: inline-block;
+            width: 200px;
+            height: 50px;
+            text-align: center;
+            font-size: 25px;
+            margin-right:-4px ;
+        }
+    </style>
+    <script>
+        function showHide(id){
+            for(var i=1;i<=3;i++){
+                if(id==i){
+                    document.getElementById("box"+i).style.display="block";
+                }else{
+                    document.getElementById("box"+i).style.display="none";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="tab">
+            <a href="javascript:showHide(1)" style="background: gray;">공지사항</a>
+            <a href="javascript:showHide(2)" style="background: gold;">QnA</a>
+            <a href="javascript:showHide(3)" style="background: dodgerblue;">자유게시판</a>
+        </div>
+        <div id="content">
+            <div id="box1"></div>    
+            <div id="box2"></div>    
+            <div id="box3"></div>    
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:600px;
+            height: 600px;
+            background: yellow;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+        }
+        #box{
+            width: 600px;
+            height: 600px;
+            position: relative;
+            background: brown;
+        }
+        #mask{
+            widows: 600px;
+            height: 600px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+        #mask1{
+            width:600px;
+            height:200px;
+            background: brown;
+            position: absolute;
+            left:0px;
+            top:0px;
+        }
+        #mask2{
+            width:200px;
+            height:600px;
+            background: brown;
+            position: absolute;
+            left:0px;
+            top:0px;
+        }
+        #mask3{
+            width:200px;
+            height:600px;
+            background: brown;
+            position: absolute;
+            left:400px;
+            top:0px;
+        }
+        #mask4{
+            width:600px;
+            height:200px;
+            background: brown;
+            position: absolute;
+            left:0px;
+            top:400px;
+        }
+    </style>
+    <script>
+        var box;
+        let a=0.1;
+        var targetX=0;
+        var targetY=0;
+
+        window.addEventListener("load", function(){
+            init();
+            setInterval("move()",10);
+        });
+
+        function init(){
+            box = document.getElementById("box");
+            for(var i=1;i<=9;i++){
+                var img = document.createElement("img");
+                img.src="../../images/travel/"+i+".jpg";
+                img.style.width=200+"px";
+                img.style.height=200+"px";
+                img.style.float="left";
+                box.appendChild(img);
+            }
+        }
+        
+        function setTarget(){
+            switch(event.keyCode){
+                case 37:
+                    targetX += 200;
+                    break;
+                case 38:
+                    targetY += 200;
+                    break;
+                case 39:
+                    targetX -= 200;
+                    break;
+                case 40:
+                    targetY -= 200;
+                    break;
+                default:
+                    break;            
+                    
+            }
+        }
+        function move(){
+            box.style.left=targetX+"px";
+            box.style.top=targetY+"px";
+            console.log(box.style.left);
+            console.log(box.style.top);
+            // box.style.left=parseInt(box.style.left)+a*(targetX-parseInt(box.style.left))+"px";
+            // box.style.top=parseInt(box.style.top)+a*(targetY-parseInt(box.style.top))+"px";
+        }
+    </script>
+</head>
+<body onkeydown="setTarget()">
+    <div id="wrapper">
+        <div id="box"  ></div>
+        <div id="mask">
+            <div id="mask1"></div>
+            <div id="mask2"></div>
+            <div id="mask3"></div>
+            <div id="mask4"></div>    
+        </div>
+    </div>
+</body>
+</html>
