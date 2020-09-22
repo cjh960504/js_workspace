@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 400px;
+            height: 100px;
+            background: black;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        var arr = new Array();
+        window.addEventListener("load", function(){
+            init();
+            setInterval("move()", 40);
+        });
+
+        function init(){
+            var wrapper = document.getElementById("wrapper");
+            for(var i=0;i<5;i++){
+                var img = document.createElement("img");
+                img.src="../../images/travel/"+(i+1)+".jpg";
+                img.style.width=100+"px";
+                img.style.height=100+"px";
+                img.style.position="absolute";
+                img.style.left=100*i+"px";
+                arr[i] = img;
+                wrapper.appendChild(arr[i]);
+            }
+        }
+    function move(){
+        for(var i=0;i<arr.length;i++){
+            arr[i].style.left=parseInt(arr[i].style.left)-10+"px";
+            if(parseInt(arr[i].style.left)==-100){
+                arr[i].style.left = 400+"px";
+            }
+        }
+    }    
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

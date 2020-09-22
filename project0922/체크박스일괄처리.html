@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li{
+            list-style-type: none;
+        }
+    </style>
+    <script>
+        function checkAll(){
+            var checkList = document.getElementsByName("ch");
+            // 대표 체크박스의 상태에 따라서 나머지 체크박스도 체크상태 결정!
+            for(var i=0;i<checkList.length;i++){ //name으로 지정한 input태그는 '대표박스'를 빼고 배열이 만들어지니까 0번째부터
+            checkList[i].checked=document.getElementById("setCheck").checked;
+            }
+        } 
+    </script>
+</head>
+<body>
+    <ul>
+        <li><input id="setCheck" type="checkbox" onclick="checkAll()"/>대표박스</li>
+        <li><input name="ch" type="checkbox"/>메일제목</li>
+        <li><input name="ch" type="checkbox"/>메일제목</li>
+        <li><input name="ch" type="checkbox"/>메일제목</li>
+        <li><input name="ch" type="checkbox"/>메일제목</li>
+        <li><input name="ch" type="checkbox"/>메일제목</li>
+        <li><input name="ch" type="checkbox"/>메일제목</li>
+        <li><input name="ch" type="checkbox"/>메일제목</li>
+        <li><input name="ch" type="checkbox"/>메일제목</li>
+        <li><input name="ch" type="checkbox"/>메일제목</li>
+        <li><input name="ch" type="checkbox"/>메일제목</li>
+        <li><input name="ch" type="checkbox"/>메일제목</li>
+    </ul>
+</body>
+</html>

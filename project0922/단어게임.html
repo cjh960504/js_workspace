@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrapper{
+            width: 400px;
+            height: 650px;
+            background: yellow;
+            margin: auto;
+        }
+        #question{
+            width: 100%;
+            height: 250px;
+            background: red;
+            font-size: 95px;
+            text-align: center;
+        }
+        .word-input{
+            width: 100%;
+            height: 100px;
+            background: chartreuse;
+        }
+        .word-input input[type="text"]{
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            font-size: 60px;
+            text-align: center;
+        }
+        #feedback{
+            width: 100%;
+            height: 200px;
+            font-size: 170px;
+            text-align: center;
+        }
+        #record{
+            width: 100%;
+            height: 100px;
+            background: chocolate;
+            font-size: 80px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        //게임에서 진행할 데이터를 생성화되, 순서를 갖게 해야 한다..
+        // 왜 와이?? 엔터칠때마다 해당 단어의 다음단어, 그 다음단어... 구현하려면 순서라는게 존재해야 하므로..
+        // 배열로 준비시키자!! 데이터가 순서를 가지며 메모리에 올라간다!!
+        var n=0, score=0;
+        var word = new Array();
+        word[0]="산기슭";
+        word[1]="리튬";
+        word[2]="핵전쟁";
+        word[3]="코로나";
+        word[4]="슬로바키아";
+        word[5]="루마니아";
+        word[6]="히틀러";
+        word[7]="독일제국";
+        word[8]="프랑스";
+        word[9]="러시아";
+
+        var question, txt, feedback, record;
+
+        window.addEventListener("load", function(){
+            init();
+        });
+        function init(){
+            // 아이디가 부여된 엘리먼트들을 전역변수로 미리 선언해놓자
+            question = document.getElementById("question");
+            txt = document.getElementById("txt");
+            feedback = document.getElementById("feedback");
+            record = document.getElementById("record");
+
+            //초기 단어, 점수 출력!!
+            printWord();
+            printScore();
+            //txt에 커서 프로그래밍적으로 올려놓기!!
+            txt.focus();
+
+            // txt를 대상으로 키보드 이벤트 구현
+            //총알이라면, 눌렀다는 이벤트에 반응하면 되지만, 
+            //글씨입력이기 때문에, 눌렀다 떼었을때가 하나의 철자가 입력되는 시점이다..
+            txt.addEventListener("keyup", function(){
+                // 키보드 중, 엔터키를 누를때 다음 단어 나오게 처리
+                // 키보드 중, 엔터키를 누를 때 다음 단어 나오게 처리..
+                if(event.keyCode==13){//Enter 아스키 코드 값
+                    //다음 단어 나오게..
+                    //입력값과 출력값의 일치성을 판단한 후, 피드백 처리
+                    if(txt.value==question.innerText){
+                        //칭찬의 피드백 O출력
+                        //점수도 0점 증가
+                        feedback.innerText="O";
+                        score+=10;
+
+                    }else{
+                        //틀렸다는 피드백 X출력
+                        feedback.innerText="X";
+                        score-=10;
+                    }
+                    txt.value="";
+                    n++;
+                    if(n>=word.length){
+                        alert("게임종료");
+                        question.innerText="Game Over";
+                    }else{
+                        printWord();
+                        printScore();
+                    }
+                }
+                //텍스트 박스에 입력한 데이터 초기화
+
+            });
+        }
+        
+        //단어출력처리
+        function printWord(){
+            question.innerText=word[n];
+        }
+
+        function printScore(){
+            record.innerText=score+" 점";
+        }
+
+        function printFeedback(){
+
+        }
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="question">단어나올곳</div>
+        <div class="word-input">
+            <input id="txt" type="text" placeholder="단어 쓰기"/>
+        </div>
+        <div id="feedback"></div>
+        <div id="record"></div>
+    </div>
+</body>
+</html>

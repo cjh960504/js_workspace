@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 600px;
+            height: 500px;
+            border: 4px solid thistle;
+            margin: auto;
+            box-sizing: border-box;
+        }
+        #path{
+            width: 100%;
+            height: 50px;
+            text-align: center;
+        }
+        #photo{
+            width: 100%;
+            height: 400px;
+        }
+        #control{
+            width: 100%;
+            height: 50px;
+            text-align: center;
+        }
+        #photo img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script>
+        //갤러리의 대상이 되는 파일명에 현재 규칙이 전혀 없다..
+        // 다음의 개념조차 없는 상태이다..
+        // 해결책) 이미지명을 메모리에 올릴 때 순서를 가지면 나열해놓으면 된다.
+        var pic;
+        var imgArr; // 크기를 명시하지 않아도 된다!!(js에서는..)
+        var count=0;    
+        var st;//setInterval을 가리키는 변수
+
+        //자동함수 실행여부를 결정하는 논리값 실행시 true, 멈춤 false
+        var flag=false; //처음에는 가동하지않음으로 false
+
+        window.addEventListener("load", function(){
+            init();
+        });
+        function init(){
+            pic = document.getElementById("pic");
+            imgArr = new Array();
+            imgArr[0]="aa.jpg";
+            imgArr[1]="ab.jpg";
+            imgArr[2]="ax.jpg";
+            imgArr[3]="bm.jpg";
+            imgArr[4]="et.jpg";
+            imgArr[5]="kg.jpg";
+            imgArr[6]="mx.jpg";
+            imgArr[7]="pk.jpg";
+            imgArr[8]="ub.jpg";
+            imgArr[9]="ya.jpg";
+        }
+
+        function printPath(){
+            var path=document.getElementById("path");
+            path.innerText="../../images/travel2/"+imgArr[count];
+        }
+        //문서내의 img의 src값을 변경한다.
+        function next(){
+            
+            if(count >= imgArr.length-1){
+                count=0;
+            }else{
+                count++;
+            }
+            pic.src="../../images/travel2/"+imgArr[count];
+            printPath();
+        }
+
+        function prev(){
+            if(count<=0){
+                count=9;
+                console.log(count);
+            }else{
+                count--;
+            }
+            pic.src="../../images/travel2/"+imgArr[count];
+            printPath();
+        }
+
+        function auto(){
+            var interval = document.getElementById("interval");
+            var speed = parseInt(interval.value);
+
+            
+            //true일 때는 자동함수가 실행중으로 간주한다..
+            var bt = document.getElementById("btAuto");
+
+            if(flag==false){//넘춘 상태라면 가동해야한다.
+            // 버튼의 제목을 pause상태로 바꿔준다!! one touch니까
+                bt.innerText="Pause";
+                st = setInterval("next()", speed);
+            }else{
+                bt.innerText="Auto";
+                clearTimeout(st); //제거 대상이 매개변수로 와야함.
+            }
+            flag=!flag;
+        }
+
+        function setFlag(){
+            //버튼을 누르면 논리값의 상태를 반대로 뒤집자
+            flag = !flag;//기존값 부정!
+
+        }
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="path">경로 나올곳</div>
+        <div id="photo">
+            <img src="../../images/travel2/aa.jpg" alt="" id="pic"/>
+        </div>
+        <div id="control">
+            <button onclick="prev()">◀</button>
+            <button id="btAuto" onclick="auto()">Auto</button>
+            <select id="interval">
+                <option value="0">속도선택</option>
+                <option value="1000">1초</option>
+                <option value="1500">1.5초</option>
+                <option value="2000">2초</option>
+            </select>
+            <button onclick="next()">▶</button>
+        </div>
+    </div>
+</body>
+</html>

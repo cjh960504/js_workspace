@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/lib.js"></script>
+    <script>
+        var lunch;
+        window.addEventListener("load", function(){
+            init();
+        });
+        var lunchArr=new Array();
+        lunchArr[0] = "짜장면";
+        lunchArr[1] = "햄버거";
+        lunchArr[2] = "백반";
+        lunchArr[3] = "짬뽕";
+        lunchArr[4] = "떡볶이";
+        lunchArr[5] = "볶음밥";
+        lunchArr[6] = "샌드위치";
+        lunchArr[7] = "김치찌개";
+        lunchArr[8] = "부대찌개";
+
+        function init(){
+            lunch = document.getElementById("lunch");
+        }
+        function setLunch(){
+            var random = getRandom(lunchArr.length-1);
+            console.log(random);
+            lunch.innerText= lunchArr[random];
+        }
+    </script>
+</head>
+<body>
+    <button onClick="setLunch()">Click</button>
+    <h1 id="lunch">클릭하세요!</h1>
+</body>
+</html>
