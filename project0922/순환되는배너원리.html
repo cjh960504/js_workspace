@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    body{
+        background: black;
+    }
+    #wrapper{
+        width: 400px;
+        height: 75px;
+        background: white;
+        margin: auto;
+        position: relative;
+        overflow: hidden;
+    }
+</style>    
+<script>
+    var arr = new Array();
+
+    window.addEventListener("load", function(){
+        init();
+        setInterval("move()",10);
+    });
+    function init(){
+        var wrapper = document.getElementById("wrapper");
+        for(var i=0;i<=4;i++){
+            div = document.createElement("div");
+            // div.src="../../images/travel/"+(i+1)+".jpg";
+            div.style.width=100+"px";
+            div.style.height=75+"px";
+            div.style.position="absolute";
+            div.style.left=(100*(i))+"px";
+
+            //테두리
+            div.style.boxSizing="border-box";
+            div.style.border="5px solid gray";
+                
+            arr[i] = div;
+            wrapper.appendChild(arr[i]);
+        }
+    }
+
+    // 이미지들의 좌표를 좌측방향으로 (음수) 이동하다가
+    function move(){
+        var tmp;
+        //지역변수로 두면 첫번째 이미지도 가리킬 수 없다..
+        // arr[0].style.left=parseInt(arr[0].style.left)-10+"px";
+        // arr[1].style.left=parseInt(arr[1].style.left)-10+"px";
+        // arr[2].style.left=parseInt(arr[2].style.left)-10+"px";
+        // arr[3].style.left=parseInt(arr[3].style.left)-10+"px";
+        // arr[4].style.left=parseInt(arr[4].style.left)-10+"px";
+
+        for(var i=0;i<arr.length;i++){
+            arr[i].style.left=parseInt(arr[i].style.left)-1+"px";
+            arr[i].innerText=arr[i].style.left;
+            if(parseInt(arr[i].style.left)==-100){
+                arr[i].style.left=400+"px"; 
+            }
+        }
+    }
+
+</script>
+
+</head>
+<body>
+    <div id="wrapper"></div>
+    <!-- <button onclick="move()">수동</button> -->
+</body>
+</html>

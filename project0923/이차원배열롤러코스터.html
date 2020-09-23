@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이차원 배열은 데이터베이스다</title>
+    <style>
+        body{
+            margin: 0px;
+        }
+        /* margin: auto를 주지 않은 이유?
+            - 마우스 좌표는 모니터를 기준으로 하기 때문이다. */
+        #wrapper{
+            width: 1200px;
+            height: 700px;
+            
+            overflow: hidden;
+        }
+        #content{
+            width: 1000px;
+            height: 100%;
+            background:url(https://image.freepik.com/free-vector/scene-with-roller-coaster-track-in-the-field_1308-38332.jpg);
+            background-size: 1000px 100%;
+            float: left;
+        }
+        #info{
+            width: 200px;
+            height: 100%;
+            background: forestgreen;
+            float: left;
+            overflow: scroll;
+            font-size: 30px;
+        }
+    </style>
+    <script>
+        var content;//좌표 점을 찍고, 이미지도 추가 
+        var info; //이차원 배열에 쌓여진 데이터 현황 출력
+        var dotArray=[]; //사용자의 좌표흔적을 누적시킬 배열, 이 안에 
+                            //좌표를 표현한 일차원 배열을 누적시켜나갈 것임.
+        //마우스의 좌표를 구해서, 해당 지점에 흔적을 남기고
+        // 이 좌표(x,y 일차원 배열) 정보를 2차원 배열에 누적시켜보자
+        //즉 좌표 데이터베이스를 구축하자!! (2차원배열은 데이터베이스이다.)
+        var px, py;
+        var img;
+        var sp=0;
+        let a=0.1;
+
+        window.addEventListener("load", function(){
+            init();
+        });
+        function init(){
+            content=document.getElementById("content");
+            info=document.getElementById("info");
+            img = document.createElement("img");
+            // setInterval("move()", 100);
+        }
+        function setPoint(){
+            var x = event.clientX;//마우스의 x좌표
+            var y = event.clientY;//마우스의 y좌표
+
+            // 시각적인 효과를 주기 위해 해당 지점에 Element생성
+            var dot = document.createElement("div");
+            dot.style.width=5+"px";
+            dot.style.height=5+"px";
+            dot.style.border="3px solid red";
+            dot.style.borderRadius="50px";
+            dot.style.position="absolute";
+            dot.style.left=x+"px";
+            dot.style.top=y+"px";
+            content.appendChild(dot);//content에 부착!
+
+            //좌표 1점을 담게될 일차원 배열
+            var point=[x,y];
+            //dotArray에 추가
+            dotArray.push(point);//1차원배열에 1차원배열을 넣음-> 넣음을 당한 배열이 2차원배열로 바뀜
+
+            //현재배열의 누적된 상황을 우측 정보창에 출력하자
+            printInfo();
+        }
+
+        function printInfo(){
+            //이차원 배열인 dotArray에 들어있는 모든 데이터를 출력해서 보여주자
+            var str="";
+            for(var i=0;i<dotArray.length;i++){
+                var point=dotArray[i]; //dotArray의 각 요소에 들어있는 일차원 배열반환
+                str+="["+point[0]+","+point[1]+"]\n";
+            }
+            info.innerText=str;
+            // info.innerText+="["+dotArray[i][0]+","+dotArray[i][1]+"]\n";
+        }
+
+        // function start(){
+        //     img.src="../../images/rollercoster/car.png";
+        //     img.style.width=50+"px";
+        //     img.style.height=50+"px";
+        //     img.style.position="absolute";
+        //     img.style.left=dotArray[0][0]+"px";
+        //     img.style.top=dotArray[0][1]+"px";
+        //     content.appendChild(img);
+
+            // for(var i=0;i<dotArray.length;i++){
+            //     px = dotArray[i][0];
+            //     py = dotArray[i][1];
+            //     img.style.left = parseFloat(img.style.left) + a * (px-parseFloat(img.style.left))+"px";
+            //     img.style.top = parseFloat(img.style.top) + a * (py-parseFloat(img.style.top))+"px";
+            // }
+        }
+
+        // function move(){
+            
+        //     img.style.left = parseFloat(img.style.left) + a * ( dotArray[sp][0]-parseFloat(img.style.left))+"px";
+        //     img.style.top = parseFloat(img.style.top) + a * (dotArray[sp++][1]-parseFloat(img.style.top))+"px";
+        // }
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="content" onclick="setPoint()"></div>
+        <div id="info"></div>
+    </div>
+    <!-- <button onclick="move()">시작</button>
+    <button onclick="start()">dd</button> -->
+</body>
+</html>
+

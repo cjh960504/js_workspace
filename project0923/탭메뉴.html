@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 600px;
+            height: 500px;
+            background: yellow;
+            margin: auto;
+        }
+        #tab{
+            width: 100%;
+            height: 50px;
+            background: yellowgreen;
+        }
+        #box1, #box2, #box3{
+            width: 100%;
+            height: 450px;
+        }
+        #box1{
+            background-color: blue;
+        }
+        #box2{
+            background-color: red;
+            display: none;
+        }
+        #box3{
+            background-color: darkkhaki;
+            display: none;
+        }
+        #tab a{
+            text-decoration: none;
+            display: inline-block;
+            width: 200px;
+            height: 50px;
+            text-align: center;
+            font-size: 25px;
+            margin-right:-4px ;
+        }
+    </style>
+    <script>
+        var boxArr;
+        function init(){
+            boxArr = document.getElementsByName("box"); //크기가 3인 배열 반환 떄문에 전역변수 선언 시 배열로 만들어줄 필요 x
+        }
+        function showHide(n){
+            for(var i=0;i<boxArr.length;i++){
+                if(n==i){
+                    boxArr[i].style.display="block";
+                }else{
+                    boxArr[i].style.display="none";
+                }
+            }
+        }
+    </script>
+</head>
+<body onLoad="init()">
+    <div id="wrapper">
+        <div id="tab">
+            <a href="javascript:showHide(0)" style="background: gray;">공지사항</a>
+            <a href="javascript:showHide(1)" style="background: gold;">QnA</a>
+            <a href="javascript:showHide(2)" style="background: dodgerblue;">자유게시판</a>
+        </div>
+        <div id="content">
+            <div id="box1" name="box"></div>    
+            <div id="box2" name="box"></div>    
+            <div id="box3" name="box"></div>    
+        </div>
+    </div>
+</body>
+</html>

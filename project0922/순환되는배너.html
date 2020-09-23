@@ -4,68 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-<style>
-    body{
-        background: black;
-    }
-    #wrapper{
-        width: 400px;
-        height: 75px;
-        background: white;
-        margin: auto;
-        position: relative;
-        overflow: hidden;
-    }
-</style>    
-<script>
-    var arr = new Array();
-
-    window.addEventListener("load", function(){
-        init();
-        setInterval("move()",60);
-    });
-    function init(){
-        var wrapper = document.getElementById("wrapper");
-        for(var i=1;i<=5;i++){
-            img = document.createElement("img");
-            img.src="../../images/travel/"+i+".jpg";
-            img.style.width=100+"px";
-            img.style.height=75+"px";
-            img.style.position="absolute";
-            img.style.left=(100*(i-1))+"px";
-
-            //테두리
-            img.style.boxSizing="border-box";
-            img.style.border="5px solid gray";
-                
-            arr[i-1] = img;
-            wrapper.appendChild(arr[i-1]);
+    <style>
+        #wrapper{
+            width: 400px;
+            height: 100px;
+            background: black;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
         }
-    }
+    </style>
+    <script>
+        var arr = new Array();
+        window.addEventListener("load", function(){
+            init();
+            setInterval("move()", 40);
+        });
 
-    // 이미지들의 좌표를 좌측방향으로 (음수) 이동하다가
+        function init(){
+            var wrapper = document.getElementById("wrapper");
+            for(var i=0;i<5;i++){
+                var img = document.createElement("img");
+                img.src="../../images/travel/"+(i+1)+".jpg";
+                img.style.width=100+"px";
+                img.style.height=100+"px";
+                img.style.position="absolute";
+                img.style.left=100*i+"px";
+                arr[i] = img;
+                wrapper.appendChild(arr[i]);
+            }
+        }
     function move(){
-        var tmp;
-        //지역변수로 두면 첫번째 이미지도 가리킬 수 없다..
-        // arr[0].style.left=parseInt(arr[0].style.left)-10+"px";
-        // arr[1].style.left=parseInt(arr[1].style.left)-10+"px";
-        // arr[2].style.left=parseInt(arr[2].style.left)-10+"px";
-        // arr[3].style.left=parseInt(arr[3].style.left)-10+"px";
-        // arr[4].style.left=parseInt(arr[4].style.left)-10+"px";
-
         for(var i=0;i<arr.length;i++){
             arr[i].style.left=parseInt(arr[i].style.left)-10+"px";
             if(parseInt(arr[i].style.left)==-100){
-                arr[i].style.left=400+"px"; 
+                arr[i].style.left = 400+"px";
             }
         }
-    }
-
-</script>
-
+    }    
+    </script>
 </head>
 <body>
     <div id="wrapper"></div>
-    <!-- <button onclick="move()">수동</button> -->
 </body>
 </html>

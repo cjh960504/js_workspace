@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 700px;
+            height: 600px;
+            border: 2px solid red;
+            margin: auto;
+            position: relative;
+        }
+    </style>
+    <script src="../js/lib.js"></script>
+    <script>
+        var bar;
+        var barArr=new Array();
+        var wrapper;
+        let a=0.1;
+        var targetH=20; //바의 목표 높이
+        var targetHArr=new Array();
+        //막대 생성
+        function createBar(){
+            for(var i=0;i<6;i++){
+                bar = document.createElement("div");
+                bar.style.position="absolute";
+                bar.style.left=(65*i)+"px";
+                bar.style.top=0+"px";
+                bar.style.width=65+"px";
+                bar.style.height=20 +"px";
+                bar.style.background="red";
+                bar.style.borderRadius="4px";
+                
+                // 막대에 마우스오버 이벤트 구현하기
+                bar.addEventListener("mouseover", function(){
+                    // move();
+                    targetH=getRanDom(500);
+                });
+                bar.addEventListener("mouseout", function(){
+                    targetH=20;
+                });
+
+                barArr[i] = bar;
+                wrapper.appendChild(barArr[i]);
+            }
+            
+        }
+        // 막대크기 변경 함수
+        function move(){
+            bar.style.height=parseFloat(bar.style.height)+a*(targetH-parseFloat(bar.style.height))+"px";
+            bar.innerText=parseFloat(bar.style.height);
+        }
+        function init(){
+            wrapper=document.getElementById("wrapper");
+        }
+
+        window.addEventListener("load", function(){
+            init();
+            createBar();
+            setInterval("move()",25);
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

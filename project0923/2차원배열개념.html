@@ -1,0 +1,19 @@
+<script>
+    var fruit=["apple", "banana", "graph", "orange"];
+    var car=["bmw", "benz", "audi", "kia"];
+    var box=[]; //1? 2? 차원
+
+    box.push(fruit);
+    box.push(car);
+
+    // 자바스크립트 배열은 자바의 어레이리스트 같은건가요
+    //비슷하지만, 자바의 어레이리스트는 객체만을 담고, 자바스크립트는 객체뿐만아니라 숫자, 문자, 논리값을 모두 담을 수 있다.
+    // 단 비슷한게 있다면, 동적으로 늘어남!!
+    for(var i=0;i<box.length;i++){
+        for(var j=0;j<box[i].length;j++){
+            document.write(box[i][j]);
+            document.write("<br>");
+        }
+    }
+    document.write(box[0].length);
+</script>
