@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0px;
+        }
+        #wrapper{
+            width: 1000px;
+            height: 600px;
+            margin: auto;
+            background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/fs/28ba5059824647.5a309e5d410de.jpg);
+            background-size: 100% 600px;
+            position: relative;
+        }
+    </style>
+    <script src="map.js"></script>
+    <script>
+        /*
+            게임 제작 시 복잡한 맵을 구현하는 노하우 배워보자!
+        */ 
+        var wrapper;
+        var blockWidth=20, blockHeight=20;
+        /*맵을 표현한 이차원배열 생성*/ 
+        
+        //블락을 생성한다.
+        function createBlock(){
+            for(var i=0;i<map.length;i++){
+                for(var a=0;a<map[i].length;a++){
+                    //한개를 먼저 생성해보자!
+                    var block = document.createElement("img");
+                    block.src="../../images/block.png";
+                    block.style.width=blockWidth+"px";
+                    block.style.height=blockHeight+"px";
+                    block.style.position="absolute";
+                    block.style.left=a*blockWidth+"px";
+                    block.style.top=i*blockHeight+"px";
+
+                    if(map[i][a]==1){
+
+                        wrapper.appendChild(block);
+                    }
+                    
+                }
+            }
+        }
+
+        function init(){
+            wrapper = document.getElementById("wrapper");
+        }
+        window.addEventListener("load", function(){
+            init();
+            createBlock();
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<script>
+    /*방법1, new연산자로 선언 후 각 요소를 index 명시하여 구성하는 법*/
+    var box = [
+    ["호랑이","사자","말"],
+    ["장미","툴립","백합"],
+    ["java", "oracle","spring"]
+    ];
+    // var animal = ["호랑이","사자","말"];
+    // var flower=["장미","툴립","백합"];
+    // var it = ["java", "oracle","spring"];
+
+    // box.push(animal);
+    // box.push(flower);
+    // box.push(it);
+
+    for(var a=0;a<box.length;a++){
+        for(var i=0;i<box[a].length;i++){
+            document.write(box[a][i]);
+        }
+    }
+    
+</script>

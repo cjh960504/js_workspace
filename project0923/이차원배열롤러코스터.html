@@ -41,9 +41,10 @@
         // 이 좌표(x,y 일차원 배열) 정보를 2차원 배열에 누적시켜보자
         //즉 좌표 데이터베이스를 구축하자!! (2차원배열은 데이터베이스이다.)
         var px, py;
-        var img;
-        var sp=0;
         let a=0.1;
+        var flag=false;
+        var img;
+        var i=0;
 
         window.addEventListener("load", function(){
             init();
@@ -51,8 +52,6 @@
         function init(){
             content=document.getElementById("content");
             info=document.getElementById("info");
-            img = document.createElement("img");
-            // setInterval("move()", 100);
         }
         function setPoint(){
             var x = event.clientX;//마우스의 x좌표
@@ -89,28 +88,6 @@
             // info.innerText+="["+dotArray[i][0]+","+dotArray[i][1]+"]\n";
         }
 
-        // function start(){
-        //     img.src="../../images/rollercoster/car.png";
-        //     img.style.width=50+"px";
-        //     img.style.height=50+"px";
-        //     img.style.position="absolute";
-        //     img.style.left=dotArray[0][0]+"px";
-        //     img.style.top=dotArray[0][1]+"px";
-        //     content.appendChild(img);
-
-            // for(var i=0;i<dotArray.length;i++){
-            //     px = dotArray[i][0];
-            //     py = dotArray[i][1];
-            //     img.style.left = parseFloat(img.style.left) + a * (px-parseFloat(img.style.left))+"px";
-            //     img.style.top = parseFloat(img.style.top) + a * (py-parseFloat(img.style.top))+"px";
-            // }
-        }
-
-        // function move(){
-            
-        //     img.style.left = parseFloat(img.style.left) + a * ( dotArray[sp][0]-parseFloat(img.style.left))+"px";
-        //     img.style.top = parseFloat(img.style.top) + a * (dotArray[sp++][1]-parseFloat(img.style.top))+"px";
-        // }
     </script>
 </head>
 <body>
@@ -118,8 +95,6 @@
         <div id="content" onclick="setPoint()"></div>
         <div id="info"></div>
     </div>
-    <!-- <button onclick="move()">시작</button>
-    <button onclick="start()">dd</button> -->
 </body>
 </html>
 
