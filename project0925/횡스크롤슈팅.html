@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin:0px;
+        }
+        #wrapper{
+            width: 100%;
+            height: 640px;
+            background-image: url("../../images/shooting/bg.jpg");
+        }
+    </style>
+    <script>
+        /*어떤 경우에 .js로 분리시켜야하는가?
+            기준: 재사용성이 기준임!! ex)
+            getRandom()
+        */ 
+    </script>
+    <script src="./Hero.js"></script>
+    <script src="./Enemy.js"></script>
+    <script src="./Bullet.js"></script>
+    <script>
+        /*
+            게임에 움직을 처리하기 위해서는 setInterval과 같은 자동함수의 사용이 필수이다.
+            이때, 이 자동홤수는 가급적 1개만 만들어야 동기화에 문제가 생기지 않는다...
+            게임 가동과 함께, 
+        */ 
+        //모드 게임의 객체들을 대상으로 주기적 함수 호출을 시도할 엔진 루프
+        var count=0;
+        var wrapper;
+        var hero; //주인공을 가리키는 변수
+        var bullet;//총알을 가리키는 변수
+        var bgX=0;//배경의 움직임 속도를 결정짓는 변수 , 좌측으로 움직여야 하므로...
+        var enemySrc=[
+            "../../images/shooting/e1.png",
+            "../../images/shooting/e2.png",
+            "../../images/shooting/e3.png",
+            "../../images/shooting/e4.png",
+            "../../images/shooting/e5.png"
+        ];
+        var bulletSrc="../../images/shooting/ball.png";
+        // 주인공 등장시키는 함수
+        function createHero(){
+            //주인공 거푸집인 Hero 클래스로부터 주인공 인스턴스 1개를 생성해본다.
+            // container, x, y, width, height
+            hero = new Hero(wrapper, 100, 200, 50, 30);
+
+        }
+        // 적군 등장 함수
+        function createEnemy(){
+            // container, src, x, y, width, height
+            // alert("당신의 모니터 스크린의 너비" + screen.width + "높이는 "+screen.height);
+
+            // 사용자마다 모니터 너비, 높이가 다르므로 프로그래밍적으로 얻어온 결과에 대해서
+            // 위치를 설정해보자
+            // var enemy = new Enemy(wrapper, "../../images/shooting/e1.png", screen.width-150, 50, 300, 300);
+            // var enemy = new Enemy(wrapper, "../../images/shooting/e1.png", screen.width-150, 50, 100, 100);
+            // var enemy = new Enemy(wrapper, "../../images/shooting/e2.png", screen.width-150, 150, 100, 100);
+            // var enemy = new Enemy(wrapper, "../../images/shooting/e3.png", screen.width-150, 250, 100, 100);
+            // var enemy = new Enemy(wrapper, "../../images/shooting/e4.png", screen.width-150, 350, 100, 70);
+            // var enemy = new Enemy(wrapper, "../../images/shooting/e5.png", screen.width-150, 450, 100, 100);
+
+            for(var i=0;i<enemySrc.length;i++){
+                new Enemy(wrapper, enemySrc[i], screen.width-150, 100+100*i, 70, 60);
+            }
+        }
+
+        // 총알 등장 함수
+        function createBullet(){
+            // container, src, x, y, width, height
+            bullet = new Bullet(wrapper, bulletSrc, parseInt(hero.img.style.left)+25, parseInt(hero.img.style.top)+15, 30, 30, 10);
+        }
+
+        //배경 움직임 처리 함수
+        function moveBg(){
+            bgX-=1;
+            wrapper.style.backgroundPosition=bgX+"px 0px";
+        }
+
+        //게임에 등장하는 모든~~요소를 움직여주는 심장박동!!
+        function gameLoop(){
+            moveBg();
+            bullet.move(); //배열로 받아야 됨
+        }
+        function init(){
+            // interval에 지정한 시간은 게임의 실행속도를 좌우한다..(Frame Per Second)1초마다 몇번의  
+            // 실행을 하는지에 대한 빈도수
+            wrapper = document.getElementById("wrapper");
+            setInterval("gameLoop()", 10); //게임루프 가동시작!!
+        }
+        window.addEventListener("load", function(){
+            init();
+            createHero();
+            createEnemy();
+
+            // 키보드 이벤트 구현하기
+            document.body.addEventListener("keydown", function(e){
+                // alert(event.keyCode);
+                if(e.keyCode==32){
+                    createBullet(); //총알 생성 함수 호출
+                }
+            });
+            createBullet();
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

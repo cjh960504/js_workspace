@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 1200px;
+            height: 700px;
+            background: cadetblue;
+            margin: auto;
+            position: relative;
+        }
+    </style>
+    <script src="../js/lib.js"></script>
+    <script>
+        var speedArr=[];
+        var arrowArr=[];
+        var wrapper;
+        var colorArr=["red", "blue", "green", "purple", "yellow"];
+        function createArrow(){
+            for(var i=0;i<5;i++){
+                var arrow = document.createElement("div");
+                arrow.style.width="50px";
+                arrow.style.height="30px";
+                arrow.innerText="→"
+                arrow.style.fontSize="50px";
+                arrow.style.color=colorArr[i];
+                arrow.style.position="absolute";
+                arrow.style.left=0+"px";
+                arrow.style.top=(100*i)+"px";
+                arrowArr[i]=arrow;
+                wrapper.appendChild(arrow);
+            }
+        }
+        function setSpeed(){
+            for(var i=0;i<arrowArr.length;i++){
+                speedArr[i] = getRandomBetween(10,50);
+            }
+        }
+        function move(){
+            for(var i=0;i<arrowArr.length;i++){
+                if(parseInt(arrowArr[i].style.left)<1200){
+                    arrowArr[i].style.left=(parseInt(arrowArr[i].style.left)+speedArr[i])+"px";
+                }
+            }
+        }
+
+        function auto(){
+            setInterval("move()",10);
+        }
+        function init(){
+            wrapper=document.getElementById("wrapper");    
+        }
+
+        window.addEventListener("load", function(){
+            init();
+            createArrow();
+            setSpeed(); 
+            setInterval("move()",10);
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>
