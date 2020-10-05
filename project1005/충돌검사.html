@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0%;
+        }
+        #wrapper{
+            width: 100%;
+            height: 800px;
+            background-color: rgb(251, 255, 0);
+        }
+    </style>
+    <script src="../js/lib.js"></script>
+    <script src="./Box.js"></script>
+    <script>
+        var box1, box2;
+        var wrapper;
+
+        function getPos(){
+            var x = event.clientX;
+            var y = event.clientY;
+            // console.log(x+","+y);
+            drag(x, y);
+        }
+
+        // 박스 나르기
+        function drag(x, y){
+            box1.x = x;
+            box1.y = y;
+
+            // 클릭을 누르는 순간부터 박스의 좌표를 마우스의 좌표와 일치시키자!
+            box1.div.style.left = box1.x + "px";
+            box1.div.style.top = box1.y + "px";
+
+            //좌표보여주기
+            box1.div.innerText = "x: "+box1.x+"\n"+"y: "+box1.y;
+            box2.div.innerText = "x: "+box2.x+"\ny: "+box2.y;
+
+            //충돌판단(x축이 교차하고(&&) y축도 교차해야함)
+            // if((box1.x+box1.width>=box2.x)&&(box1.y+box1.height>=box2.y)){
+            //     box1.div.style.background="black";
+            // }else{
+            //     box1.div.style.background="red";
+            // }
+            var result = collisionCheck(box1.div, box2.div);
+            if(result){
+                box1.div.style.background="black";
+            }else{
+                box1.div.style.background="red";
+            }
+            console.log("충돌결과 : " + result);
+            
+        }
+        function init(){
+            wrapper = document.getElementById("wrapper");
+            // 빨간상자
+            box1 = new Box("red", 100, 300);
+            // 파란상자
+            box2 = new Box("blue", 500, 300);
+        }
+        window.addEventListener("load", function(){
+            init();
+        });
+    </script>
+</head>
+<body onmousemove="getPos()">
+    <div id="wrapper"></div>
+</body>
+</html>

@@ -33,7 +33,8 @@
         var count=0;
         var wrapper;
         var hero; //주인공을 가리키는 변수
-        var bullet;//총알을 가리키는 변수
+        var bullet=new Array();//총알을 가리키는 변수
+        var bulletNum=0;
         var bgX=0;//배경의 움직임 속도를 결정짓는 변수 , 좌측으로 움직여야 하므로...
         var enemySrc=[
             "../../images/shooting/e1.png",
@@ -72,7 +73,7 @@
         // 총알 등장 함수
         function createBullet(){
             // container, src, x, y, width, height
-            bullet = new Bullet(wrapper, bulletSrc, parseInt(hero.img.style.left)+25, parseInt(hero.img.style.top)+15, 30, 30, 10);
+            bullet.push(new Bullet(wrapper, bulletSrc, parseInt(hero.img.style.left), parseInt(hero.img.style.top), 30, 30, 10)); 
         }
 
         //배경 움직임 처리 함수
@@ -84,7 +85,7 @@
         //게임에 등장하는 모든~~요소를 움직여주는 심장박동!!
         function gameLoop(){
             moveBg();
-            bullet.move(); //배열로 받아야 됨
+            bullet[0].move(); //배열로 받아야 됨
         }
         function init(){
             // interval에 지정한 시간은 게임의 실행속도를 좌우한다..(Frame Per Second)1초마다 몇번의  

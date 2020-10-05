@@ -62,23 +62,26 @@
     stage가 여러판이기 때문에...
 */
 var word=[
-    ["쌀","마우스","사과","한국","태평양","눈","태양","야구","볼펜","제주도"],
-    ["홍천","노트","광화문","농구","키보드","오렌지","미국","대서양","비","목성"],
-    ["양수리","보리","축구","소나기","금성","모니터","포도","영국","인도양","태풍"],
-    ["귤","가평","태권도","연습장","3호선","감자","토성","메모리","호주","흑해"],
-    ["배","붓","안양","고구마","펜ch","돌풍","화성","네덜란드","지중해","하드"]
+    ["쌀","마우스","사과","한국","태평양","눈","태양","야구","볼펜"],
+    ["홍천","노트","광화문","농구","키보드","오렌지","미국","대서양","비"],
+    ["양수리","보리","축구","소나기","금성","모니터","포도","영국","인도양"],
+    ["귤","가평","태권도","연습장","3호선","감자","토성","메모리","호주"],
+    ["배","붓","안양","고구마","펜ch","돌풍","화성","네덜란드","지중해"]
 ];
 var spanArray=[]; //단어 10개의 span을 모아놓을 배열..
 var stage;
 var level=0; //게이머의 현재 레벨을 표현하는 변수, 우리 게임은 0~4 레벨까지있다
-var stepY=5;//몇 걸음씩 내려올지 결정하는 변수
+var stepY=30;//몇 걸음씩 내려올지 결정하는 변수
 var flag=false; //단어가 움직일지 여부를 결정짓는 논리값 변수
 var sel; //level을 선택할 select box
 var hpBox; //hp를 동적으로 추가하게 될 div
+var myHp=[];
+var index=0;
 var scoreBox; //점수를 출력할 div
 var score=0; //점수 
 var keyword;
 var test=false;
+var testArr=[];
 //화면에 등장할 단어를 감쌀 태그 생성
 function createWord(){
     //해당 stage에 등장할 단어만큼 생성
@@ -88,7 +91,7 @@ function createWord(){
         span.innerHTML=word[level][i];
         span.style.position="absolute";
         span.style.left=(i*90)+"px";
-        span.style.top=getRandomBetween(-300, 0)+"px";
+        span.style.top=getRandomBetween(-500, 0)+"px";
         spanArray.push(span); //스팬을 배열에 보관! 왜 보관? 추후 이동해야되니까..
         stage.appendChild(span); 
     }
@@ -98,7 +101,7 @@ function createWord(){
 function move(){
     if(flag){
         var len=spanArray.length;
-        for(var i=0; i<len;i++){
+        for(var i=0; i<spanArray.length;i++){
             //한걸음씩 이동
             spanArray[i].style.top= (parseInt(spanArray[i].style.top)+stepY) +"px";
 
@@ -109,9 +112,13 @@ function move(){
                 // span이 닿았을 때, 배열에서 제거하지 않으면 끝없이 if조건에 해당되므로
                 // 끝없이 닿은 처리가 되버린다... 해결책) 실제로 물리적으로 제거해버리되,
                 // 배열에서도 삭제해야 남은 span을 대상으로 로직이 실행될 것이다.
-                console.log(i+"번째 닿음");
                 spanArray.splice(i,1);
                 i=0;
+                if(index>0){
+                    index-=1;
+                    hpBox.removeChild(myHp[index]);
+                }
+                
             }
         }
     }
@@ -141,8 +148,10 @@ function createHp(){
         hp.style.background="red";
         hp.style.float="left";
         hp.style.border="2px solid yellow";
+        myHp.push(hp);
         hpBox.appendChild(hp);
     }
+    index=myHp.length;
 
 }
 
@@ -166,7 +175,6 @@ function init(){
             text=keyword.value;
             for(var i=0;i<word[level].length;i++){
                 if(text==word[level][i]){
-                    alert(i+"번쨰에서 일치하는 단어찾음");
                     // spanArray[i].style.color="red";
                     //span엘리먼트 자체를 제거해보자!!
                     stage.removeChild(spanArray[i]);//부모로부터 삭제
@@ -190,7 +198,7 @@ window.addEventListener("load", function(){
     createLevelOption();
     createHp();
     printScore();   
-    setInterval("move()", 100);
+    setInterval("move()", 500);
 });
 </script>
 </head>
