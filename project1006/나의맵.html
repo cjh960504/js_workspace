@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #myMap{
+            width:1000px;
+            height: 700px;
+            margin: auto;
+        }
+    </style>
+    <script>
+        var myMap;
+        var posArray=[{
+            lat:37.525683,
+            lng:127.038562,
+            img:'../../images/food/pizza.png',
+            con:"피자맛집"
+        },{
+            lat:37.522689,
+            lng:127.037253,
+            img:'../../images/food/hamberger.png',
+            con:"햄버거맛집"
+        },{
+            lat:37.517080,
+            lng:127.041240,
+            img:'../../images/food/cake.png',
+            con:"케이크맛집"
+        },{
+            lat:37.500474, 
+            lng:127.036710,
+            img:'../../images/food/koreafood.png',
+            con:"한식맛집"
+        },{
+            lat:37.523958, 
+            lng:127.054172,
+            img:'../../images/food/donut.png',
+            con:"도넛맛집"
+        }];
+
+        function init(){
+            myMap = document.getElementById("myMap");
+            var pos = new google.maps.LatLng(37.521614, 127.036917);
+            var mapProp = {
+                center:pos,
+                zoom:14
+            };
+
+            // 구글맵 객체 생성
+            //var map = new google.maps.Map(그려질div, 옵션) 
+            var map = new google.maps.Map(myMap, mapProp);
+
+            for(var i=0;i<posArray.length;i++){
+                    // 마커생성
+                    var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(posArray[i].lat, posArray[i].lng),
+                    animation:google.maps.Animation.BOUNCE,
+                    icon:{
+                        url:posArray[i].img,
+                        scaledSize:new google.maps.Size(40, 40)
+                    }
+                });
+                //map에 marker찍어주기, marker를 적용할 map객체
+                marker.setMap(map);
+                    //content부여
+                var infowindow = new google.maps.InfoWindow({
+                    content:posArray[i].con
+                });
+                infowindow.open(map,marker);
+                //마커에 클릭이벤트 부여하기
+                google.maps.event.addListener(marker, "click", function(){
+                    map.setZoom(20);
+                
+                });
+            
+            }
+
+        }
+        </script>
+</head>
+<body>
+    <div id="myMap">구글지도</div>
+</body>
+</html>
+<script src="https://maps.googleapis.com/maps/api/js?key=&callback=init"></script>

@@ -16,6 +16,7 @@
             overflow: hidden;
         }
     </style>
+    <script src="../js/lib.js"></script>
     <script src="./Enemy.js"></script>
     <script src="./Hero.js"></script>
     <script src="./Bullet.js"></script>
@@ -60,7 +61,7 @@
             // 총알인 경우의 사운드 처리 
             var audio = document.createElement("audio");
             audio.src="../../images/shooting/sound/fire.wav";
-            audio.play();
+            // audio.play();
 
             // 생성된 총알을 배열에 추가
             bulletArray.push(bullet);
@@ -93,24 +94,19 @@
 
             // 총알을 아직 생성된 적이 없기 떄문에 bullet변수에는 undifined
             // 따라서 존재하지 않는 객체의 메서드를 호출하게 되면 에러
-            if(bulletArray!=undefined){
-                for(var i=0; i<bulletArray.length;i++){
-                    bulletArray[i].tick();
-                    bulletArray[i].render();
-                }
+            for(var i=0;i<bulletArray.length;i++){
+                bulletArray[i].tick();
+                bulletArray[i].render();
             }
-            if(bombArray!=undefined){
-                for(var i=0; i<bombArray.length;i++){
-                    bombArray[i].tick();
-                    bombArray[i].render();
-                }
+            for(var i=0;i<bombArray.length;i++){
+                bombArray[i].tick();
+                bombArray[i].render();
             }
-            if(enemyArray!=undefined){
-                for(var i=0; i<enemyArray.length;i++){
-                    enemyArray[i].tick();
-                    enemyArray[i].render();
-                }
+            for(var i=0;i<enemyArray.length;i++){
+                enemyArray[i].tick();
+                enemyArray[i].render();
             }
+
             bgEffect();
         }
         window.addEventListener("load", function(){

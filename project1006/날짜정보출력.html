@@ -1,0 +1,19 @@
+<script>
+    var days=["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+
+    var yy=parseInt(prompt("원하는 연도를 입력하세요\n ex)1996"));
+    var mm=parseInt(prompt("원하는 월을 입력하세요?"));
+    var dd=parseInt(prompt("원하는 일을 입력하세요?"));
+    var date = new Date(yy, mm-1, dd);
+    // 월은 0부터 시작하므로 -1
+    // var date = new Date();
+
+    // date.setFullYear(yy);
+    // date.setMonth(mm-1);
+    // date.setDate(dd);
+
+    var day = date.getDay();
+    // console.log(day);
+    alert("그날은 "+days[day]+"입니다.");
+    console.log(date);
+</script>

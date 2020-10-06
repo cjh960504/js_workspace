@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #myMap{
+            width:  100%;
+            height: 800px;
+        }
+    </style>
+    <script>
+        var myMap;
+        var storeArray = [
+            {
+                content:"한국음식전문점",
+                pos:{
+                    lat:37.521614,
+                    lon:127.035917
+                },
+                url:"../../images/food/koreafood.png"
+        },{
+                content:"패스트푸드전문점",
+                pos:{
+                    lat:37.521614,
+                    lon:127.034917
+                },
+                url:"../../images/food/hamberger.png"
+        },{
+                content:"케이크전문점",
+                pos:{
+                    lat:37.521614,
+                    lon:127.036917
+                },
+                url:"../../images/food/cake.png"
+        },{
+                content:"피자전문점",
+                pos:{
+                    lat:37.521614,
+                    lon:127.037917
+                },
+                url:"../../images/food/pizza.png"
+        },{
+                content:"도넛전문점",
+                pos:{
+                    lat:37.521614,
+                    lon:127.038917
+                },
+                url:"../../images/food/donut.png"
+        }]; //맛집들의 정보를 보유할 일차원 배열
+        
+        // 초기화 담당
+        function init(){
+            myMap = document.getElementById("myMap");
+            createMap();
+        }
+
+        //맵 처리 담당
+        function createMap(){
+            // alert('OK');
+
+            //맵 생성하기
+            var map = new google.maps.Map(myMap, {
+                center:new google.maps.LatLng(37.521614, 127.036917),
+                zoom:18
+            });
+
+            for(var i=0;i<storeArray.length;i++){
+                // 지도에 마커 표시하기 (맛집들을.)
+                var store = storeArray[i];
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(store.pos.lat, store.pos.lon),
+                    icon:{
+                        url:store.url,
+                        scaledSize:new google.maps.Size(40, 40)
+                    }
+                });
+
+                // 마커를 적용할 맵 지정
+                marker.setMap(map);
+
+                // 정보창 띄우기
+                var popup = new google.maps.InfoWindow({
+                    content:store.content
+                });
+
+                //popup을 적용할 맵과 마커 지정 
+                popup.open(map, marker);
+            }
+        }
+    </script>   
+</head>
+<body>
+    <div id="myMap"></div>
+</body>
+</html>
+<script src="https://maps.googleapis.com/maps/api/js?key=&callback=init"></script>

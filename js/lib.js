@@ -99,5 +99,5 @@ function collisionCheck(box1, box2) {
    && y1 <=(y2+height2) 
    && x1 <=(x2+width2)  
 
-  return result;
+return result;
 }
