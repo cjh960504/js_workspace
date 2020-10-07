@@ -1,0 +1,16 @@
+<script>
+    var yy=parseInt(prompt("원하는 연도를 입력하세요\n ex)1996"));
+    var mm=parseInt(prompt("원하는 월을 입력하세요?"));
+    
+    // 사용자가 입력한 날짜로, Date객체를 조작!
+    var d = new Date();
+    d.setFullYear(yy);
+    d.setMonth(mm-1); //month는 0부터 시작이니 입력값-1
+    d.setDate(1); //매월 1일이 무슨 요일인지 알아야하므로, 날짜를 1로 조작
+
+    // 조작이 완료되었으므로, 이제 요일을 물어보자
+    // 너 무슨 요일이니?
+    var day = d.getDay();
+    var days=["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+    document.write(yy+"년 "+mm+"월 1일의 요일은 "+days[day]+"입니다." );
+</script>
