@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        #wrapper{
+            width: 500px;
+            height: 500px;
+        }
+        #q{
+            font-size: 50px;
+            font-weight: bold;
+        }
+    </style>
+    <script src="../js/lib.js"></script>
+    <script>
+        var testArray = [{
+            quest:"회귀 테스트",
+            answer:"오류 수정 후 새로 유입된 결함이 있는 지 확인하는 테스트"
+        },{
+            quest:"회복 테스트",
+            answer:"고의로 잘못된 데이터 입력 시 정상 복귀하는지 확인 테스트"
+        },{
+            quest:"안전 테스트",
+            answer:"시스템의 보안적인 결함 테스트"
+        },{
+            quest:"강도 테스트",
+            answer:"과부화 시 정상 작동하는 지 테스트"
+        },{
+            quest:"성능 테스트",
+            answer:"시스템 처리량, 반응속도 , 처리속도 등 시스템의  성능 테스트"
+        },{
+            quest:"구조 테스트",
+            answer:"시스템 내부 경로나 시스템의 복잡도 테스트"
+        },{
+            quest:"병행 테스트",
+            answer:"변경 전 시스템과 변경 후 시스템에 동일값을 입력하여 테스트"
+        }];
+        var q, a;
+        var next, ans;
+        var index;
+        function change(){
+            index = getRandom(testArray.length-1);
+            console.log(index);
+            q.innerText  = testArray[index].quest;
+            a.innerText = testArray[index].answer;
+            a.style.display="none";
+        }
+        function confirm(){
+            a.style.display="block";
+        }
+        function init(){
+            change();
+        }
+        window.addEventListener("load", function(){
+            q = document.getElementById("q");
+            a = document.getElementById("a");
+
+            next = document.getElementById("next");
+            ans = document.getElementById("ans");
+
+            init();
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <p id="q"></p>
+        <p id="a"></p>
+        <button id="next" onclick="change()">다음 문제</button>
+        <button id="ans" onclick="confirm()">답 확인</button>
+    </div>
+</body>
+</html>

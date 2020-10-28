@@ -47,12 +47,12 @@ position: relative;
 // }); 
 // == $(document).ready(function(){});
 $(function(){  
-    // 입력양식이 화면밖에 나와있게...
+    // 입력양식이 화면밖에 나와있게..
     $(".container").css({
         "left":"-800px"
     }).animate({
-        "left":"0px"
-    }, "slow");
+        left:"0px"
+    });
     $(bt).click(function(){
         // 유효성 체크
         checkValid();
@@ -98,10 +98,12 @@ function checkValid(){
         $("textarea").focus();
         return;
     }else{
-        $("#form1").attr("action", "http://daum.net");
+        // 우리가 구축한 node.js 서버로 데이터들을 전송하자!
+        $("#form1").attr("action", "http://localhost:7979/"); //전송 url , 구분값이 필요
         $("#form1").submit();
     }
 }
+
 </script>
 <body>
 
@@ -121,6 +123,6 @@ function checkValid(){
         <input type="button" value="Submit" id="bt">
     </form>
 </div>
-
+<!-- <input type="button" value="띄우기" onClick="onOff()"/> -->
 </body>
 </html>
